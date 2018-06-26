@@ -2,23 +2,24 @@
 import pandas as pd
 import numpy as num
 
-from stat_table import site_sorter
+from general import site_sorter
+from general import getNum_sites
 from stat_table import min_per_site
 from stat_table import max_per_site
 from stat_table import mean_per_site
 from stat_table import median_per_site
 from stat_table import standard_dev_per_site
-from QC_table import tot_values
-from stat_table import getNum_sites
-from QC_table import null_number
-from QC_table import zero_number
-from QC_table import LLD_inc_zero
-from QC_table import LLD_exc_zero
-from QC_table import ULD
 from Phenotype_table import below_LLD_to_con1
 from Phenotype_table import above_con1_exc_zero
 from Phenotype_table import con1_to_con2
 from Phenotype_table import greater_than_con
+from QC_table import zero_capturing
+from QC_table import null_capturing
+from QC_table import LLD_inc_zero_capturing
+from QC_table import LLD_exc_zero_capturing
+from QC_table import ULD_capturing
+from QC_table import tot_values
+
 
 
 lld_glucose = 0.36
@@ -27,19 +28,27 @@ condition1 = 5.6
 condition2 = 7.0
 condition3 = 11.1
 
-
+values = open("values.txt", "w+")
+values.truncate
 writer = pd.ExcelWriter("output.xls")
 sites = list([0,0,0,0,0,0])
-#data_field1 = pd.read_csv("/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/new.csv",low_memory=False)
-#glucose_all_sites =site_sorter(data_field1['site'], data_field1['glucose'],sites)
-
-data_field1 = pd.read_csv("/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/data/all_sites_v2.5.2.csv",low_memory=False)
+data_field1 = pd.read_csv("/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/new.csv",low_memory=False)
+#data_field1 = pd.read_csv("/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/data/all_sites_v2.5.2.csv",low_memory=False)
 glucose_all_sites =site_sorter(data_field1['site'], data_field1['glucose'],sites)
+site_ids = site_sorter(data_field1['site'], data_field1['site_id'], sites)
+study_ids = site_sorter(data_field1['site'], data_field1['study_id'], sites)
+cohort_ids = site_sorter(data_field1['site'], data_field1['Cohort_ID_c'], sites)
+
+#study = studyID_of_zero(study_ids,glucose_all_sites)
+#zeros_val = zero_number(glucose_all_sites)
+#zero_val2 = siteID_of_zero(site_ids,glucose_all_sites)
+#print(study)
+#print(zeros_val)
+#print(zero_val2 )
 
 
-
-######
-#Statistics table
+#######
+##Statistics table
 minimum = min_per_site(glucose_all_sites)
 maximum = max_per_site(glucose_all_sites)
 mean =  mean_per_site(glucose_all_sites)
@@ -59,16 +68,14 @@ stat_table.to_excel(writer , sheet_name='Sheet1')
 
 
 
-#
 ###########
-##QC table
-
+###QC table
 total = tot_values(glucose_all_sites)
-null_num = null_number(glucose_all_sites)
-zero_nums = zero_number(glucose_all_sites)
-LLD_inc_zero_num = LLD_inc_zero(glucose_all_sites,lld_glucose)
-LLD_exc_zero_num = LLD_exc_zero(glucose_all_sites,lld_glucose)
-ULD_num =ULD(glucose_all_sites,uld_glucose)
+null_num = null_capturing(study_ids,glucose_all_sites,site_ids,values,cohort_ids)
+zero_nums = zero_capturing(study_ids,glucose_all_sites,site_ids,values,cohort_ids)
+LLD_inc_zero_num = LLD_inc_zero_capturing(glucose_all_sites,lld_glucose,study_ids,site_ids,values,cohort_ids)
+LLD_exc_zero_num =LLD_exc_zero_capturing(glucose_all_sites,lld_glucose,study_ids,site_ids,values,cohort_ids)
+ULD_num = ULD_capturing(glucose_all_sites,uld_glucose,study_ids,site_ids,values,cohort_ids)
 
 
 QC_table = pd.DataFrame({ 'Total Values ' : total ,
@@ -104,7 +111,7 @@ writer.save()
 
 
 
-
+values.close()
 
 
 
