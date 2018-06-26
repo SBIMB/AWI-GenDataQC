@@ -32,7 +32,7 @@ def above_con1_exc_zero(site_var, limit):
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j]  <  limit and temp[j] !=0 :
+            if temp[j]  <= limit and temp[j] !=0 :
                 count= count + 1
         end_var.append(count)
         count = 0

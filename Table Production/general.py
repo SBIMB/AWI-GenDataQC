@@ -46,17 +46,20 @@ def site_sorter(site_var, var,sites):
 
 
 def getNum_sites(sites):
+    '''Determines how many sites are represented in the .csv file read and returns the values necessary
+    for indexing the table '''
+    
     values = list()
     size = len(sites)
     for i in range(size):
         if sites[i] ==1:
             values.append(i+1)
-           
-        
+            
     return values
 
 
 def populate_sites(sites,init_data):
+    '''Populates the final data field for each site based on how many sites are represented '''
     size = len(init_data)
     data = list()
     for i in range(size):

@@ -1,6 +1,8 @@
 import numpy as num
 
 def min_per_site(all_sites):
+    '''Returns the minimum value for a particular variable at each site '''
+    
     size = len(all_sites)
     minimum_total =list()
     
@@ -13,6 +15,8 @@ def min_per_site(all_sites):
 
 
 def max_per_site(all_sites):
+    '''Returns the maximum value for a particular variable at each site '''
+    
     size = len(all_sites)
     maximum_total =list()
     
@@ -24,6 +28,8 @@ def max_per_site(all_sites):
     return  maximum_total
 
 def mean_per_site(all_sites):
+    '''Returns the mean value for a particular variable at each site '''
+    
     size = len(all_sites)
     mean_total =list()
     
@@ -35,6 +41,8 @@ def mean_per_site(all_sites):
     return  mean_total
 
 def median_per_site(all_sites):
+    '''Returns the median value for a particular variable at each site '''
+    
     size = len(all_sites)
     median_total =list()
     
@@ -46,6 +54,8 @@ def median_per_site(all_sites):
     return median_total
 
 def standard_dev_per_site(all_sites):
+    '''Returns the standard deviation for a particular variable at each site '''
+    
     size = len(all_sites)
     standard_dev_total =list()
     
@@ -55,3 +65,12 @@ def standard_dev_per_site(all_sites):
         standard_dev_total.append(standard_dev)
         
     return   standard_dev_total
+
+
+
+
+
+
+
+
+
