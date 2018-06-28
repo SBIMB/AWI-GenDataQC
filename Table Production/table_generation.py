@@ -22,15 +22,15 @@ from QC_table import all_values
 
 
 
-def skeleton(llq_val, ulq_val,  condition1 ,  condition2 , condition3 , desired_var ,data_field1 ,
-             QC_filename , table_names,Phen_filename, replaced_missing, replaced_branching):
+def stat_and_QC(llq_val, ulq_val , desired_var ,data_field1 ,
+             QC_filename , table_names, replaced_missing, replaced_branching):
     
     
     #Initializing values  
     
-    writer = pd.ExcelWriter(table_names)
+    
     values = pd.ExcelWriter(QC_filename )
-    values_phen = pd.ExcelWriter(Phen_filename)
+    
     
     
     sites = list([0,0,0,0,0,0])
@@ -57,7 +57,7 @@ def skeleton(llq_val, ulq_val,  condition1 ,  condition2 , condition3 , desired_
                              'Median' : median,
                              'Standard Deviation' : stand_dev }, index=sites)
     
-    stat_table.to_excel(writer , sheet_name='Statistics')
+    stat_table.to_excel(table_names , sheet_name='Statistics')
     
     
     
@@ -82,8 +82,23 @@ def skeleton(llq_val, ulq_val,  condition1 ,  condition2 , condition3 , desired_
                          "Replaced Branching Missing Values ("+str(replaced_branching)+")": branching_missing_num,
                           }, index=sites)
     
-    QC_table.to_excel(writer , sheet_name='QC')
+    QC_table.to_excel(table_names, sheet_name='QC')
+   
+    values.save()
     
+    
+def Phenotype_5conditions(llq_val,  condition1 ,  condition2 , condition3 , desired_var ,data_field1 ,
+              table_names,Phen_filename): 
+    
+    values_phen = pd.ExcelWriter(Phen_filename)
+    
+    sites = list([0,0,0,0,0,0])
+    variable_all_sites =site_sorter(data_field1['site'], data_field1[desired_var],sites)
+    site_ids = site_sorter(data_field1['site'], data_field1['site_id'], sites)
+    study_ids = site_sorter(data_field1['site'], data_field1['study_id'], sites)
+    cohort_ids = site_sorter(data_field1['site'], data_field1['Cohort_ID_c'], sites)
+    site_numbers = site_sorter(data_field1['site'], data_field1['site'], sites)
+    sites = getNum_sites(sites)
     
     
     ##########
@@ -99,6 +114,7 @@ def skeleton(llq_val, ulq_val,  condition1 ,  condition2 , condition3 , desired_
                                 ,cohort_ids,site_numbers, condition2)
     greater_than_11 = greater_than_con(study_ids,variable_all_sites,site_ids,values_phen
                                 ,cohort_ids,site_numbers, condition3)
+    
     Phenotype_table = pd.DataFrame({ 'LLQ =< Values <= '+ str(condition1) : lower_limit ,
                             'Values <='+ str(condition1) +" (exc 0) " : above_initial_limit,
                              str(condition1) + ' < Values < ' + str(condition2)  : between_con1_to_con2,
@@ -106,11 +122,36 @@ def skeleton(llq_val, ulq_val,  condition1 ,  condition2 , condition3 , desired_
                              'Values >= ' + str(condition3) :greater_than_11 }, index=sites)
     
     
-    Phenotype_table.to_excel(writer , sheet_name='Phenotype')
-    
-    
-    writer.save()
-    values.save()
+    Phenotype_table.to_excel(table_names , sheet_name='Phenotype')
     values_phen.save()
-
-
+    
+def Phenotype_1conditions( condition1  , desired_var ,data_field1 ,table_names, Phen_filename): 
+    
+    values_phen = pd.ExcelWriter(Phen_filename)
+    
+    sites = list([0,0,0,0,0,0])
+    variable_all_sites =site_sorter(data_field1['site'], data_field1[desired_var],sites)
+    site_ids = site_sorter(data_field1['site'], data_field1['site_id'], sites)
+    study_ids = site_sorter(data_field1['site'], data_field1['study_id'], sites)
+    cohort_ids = site_sorter(data_field1['site'], data_field1['Cohort_ID_c'], sites)
+    site_numbers = site_sorter(data_field1['site'], data_field1['site'], sites)
+    sites = getNum_sites(sites)
+    
+    
+    ##########
+    #Phenotype table
+    
+    greater_than_condition1  = greater_than_con(study_ids,variable_all_sites,site_ids,values_phen
+                                ,cohort_ids,site_numbers, condition1)
+    
+    Phenotype_table = pd.DataFrame({ 'Values >= ' + str(condition1) :greater_than_condition1 }, index=sites)
+    
+    
+    Phenotype_table.to_excel(table_names , sheet_name='Phenotype')
+    values_phen.save()
+    
+    
+    
+    
+    
+    
