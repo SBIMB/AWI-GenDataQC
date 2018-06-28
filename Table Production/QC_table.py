@@ -6,7 +6,76 @@ def tot_values(site_var):
 
     total_val = [len(x) for x in site_var]
     return total_val
+
+def all_values_samefile(study_var,var,site_ID,file,cohort_id, site):
+     ''' Records the number of instances of particular variable at each site and 
+     writes to a file the study ID, site ID ,cohort ID and site number of the variable'''
+     
+     size = len(study_var)
+     total_vals = tot_values(var)
+     file.write('\n'+"All Values of the Variable"+'\n')
+     heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"+ ","+"Recorded Value" 
+     file.write( heading +"\n" )
+     
+     
+     for i in range(size):
+        size_temp = total_vals[i]
+        temp = var[i]
+        for j in range (size_temp): 
+            
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                a = value_checker(temp[j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z) + ','+ str(a)
+                file.write( line +'\n')
+                
+     file.write('\n\n')          
+     return total_vals
+ 
+def all_values(study_var,var,site_ID,file,cohort_id, site):
+     ''' Records the number of instances of particular variable at each site and 
+     writes to a file the study ID, site ID ,cohort ID and site number of the variable'''
+     
+     size = len(study_var)
+     total_vals = tot_values(var)
+     site_values = list()
+     study_values = list()
+     site_ID_values =list()
+     cohort_ID_values = list()
+     recorded_values = list()
+     
+     
+     for i in range(size):
+        size_temp = total_vals[i]
+        temp = var[i]
+        for j in range (size_temp): 
+            
+                site_values .append(value_checker(site[i][j]))
+                study_values.append(value_checker(study_var[i][j]))
+                site_ID_values.append(value_checker(site_ID[i][j]))
+                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+                recorded_values.append(value_checker(temp[j]))
+                
+                
+     data = creating_DF_with_values (site_values,study_values,site_ID_values,cohort_ID_values,recorded_values)
+     data.to_excel(file , sheet_name='All Values')
+     return total_vals
+ 
+def creating_DF_with_values (site_num,siteID,studyID,cohortID,values):
+    tabled_data = pd.DataFrame({ "Site" : site_num ,
+                        "Site ID " : siteID,
+                         "Study ID" : studyID,
+                         "Cohort ID" : cohortID,
+                         "Recorded Value" :values })
+
+
     
+    return tabled_data 
+
+
+  
 
 def null_number(site_var):
     ''' Records the number of instances of null values for a particular variable at each site '''
@@ -37,24 +106,7 @@ def zero_number(site_var):
     
     return zero_vals
 
-#
-#def zero_capturing(study_var,var,site_ID,file):
-#    #def studyID_of_zero(study_var,var,site_var):
-#     size = len(study_var)
-#     total_vals = tot_values(var)
-#     file.write("Zero Values"+'\n')
-#     file.write("Site ID "+"\t\t\t"+"Study ID" +'\n')
-#     
-#     for i in range(size):
-#        size_temp = total_vals[i]
-#        temp = var[i]
-#        
-#        for j in range (size_temp): 
-#            
-#            if temp[j] == 0:
-#                x=study_var[i][j]
-#                y = site_ID[i][j]
-#                file.write(x + "\t\t\t\t" + y+'\n')
+
                 
 def zero_capturing_init(study_var,var,site_ID,file,cohort_id):
      ''' Records the number of instances of zero values for a particular variable at each site and 
@@ -76,11 +128,11 @@ def zero_capturing_init(study_var,var,site_ID,file,cohort_id):
                 x= value_checker(study_var[i][j])
                 y = value_checker(site_ID[i][j])
                 z = value_checker(cohort_id[i][j])
-                file.write(str(x) + "\t\t\t\t" + str(y) +  "\t\t\t\t" + str(z) +'\n')
+                file.write(str(x) + "\t\t\t" + str(y) +  "\t\t\t" + str(z) +'\n')
      file.write('\n')          
      return zero_vals
  
-def zero_capturing(study_var,var,site_ID,file,cohort_id, site):
+def zero_capturing_txtdoc(study_var,var,site_ID,file,cohort_id, site):
      ''' Records the number of instances of zero values for a particular variable at each site and 
      writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance'''
      
@@ -103,6 +155,70 @@ def zero_capturing(study_var,var,site_ID,file,cohort_id, site):
                 y = value_checker(site_ID[i][j])
                 z = value_checker(cohort_id[i][j])
                 line = "{0:20} {1:20} {2:20} {3:20}".format(str(w), str(x),str(y) ,str(z))
+                file.write( line +'\n')
+     file.write('\n')          
+     return zero_vals
+ 
+def creating_DF_without_values (site_num,siteID,studyID,cohortID):
+    tabled_data = pd.DataFrame({ "Site" : site_num ,
+                        "Site ID " : siteID,
+                         "Study ID" : studyID,
+                         "Cohort ID" : cohortID })
+
+    return tabled_data 
+ 
+def zero_capturing(study_var,var,site_ID,file,cohort_id, site):
+     ''' Records the number of instances of zero values for a particular variable at each site and 
+     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance'''
+     
+     size = len(study_var)
+     total_vals = tot_values(var)
+     zero_vals = zero_number(var)
+     site_values = list()
+     study_values = list()
+     site_ID_values =list()
+     cohort_ID_values = list()
+     
+     for i in range(size):
+        size_temp = total_vals[i]
+        temp = var[i]
+        
+        for j in range (size_temp): 
+            
+            if temp[j] == 0:
+                site_values .append(value_checker(site[i][j]))
+                study_values.append(value_checker(study_var[i][j]))
+                site_ID_values.append(value_checker(site_ID[i][j]))
+                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+                
+     data = creating_DF_without_values(site_values,study_values,site_ID_values,cohort_ID_values)
+     data.to_excel(file , sheet_name='Zero Values')    
+      
+     return zero_vals
+
+def zero_capturing_samefile(study_var,var,site_ID,file,cohort_id, site):
+     ''' Records the number of instances of zero values for a particular variable at each site and 
+     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance'''
+     
+     size = len(study_var)
+     total_vals = tot_values(var)
+     file.write('\n'+"Zero Values"+'\n')
+     heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID" 
+     file.write( heading +"\n" )
+     zero_vals = zero_number(var)
+     
+     for i in range(size):
+        size_temp = total_vals[i]
+        temp = var[i]
+        
+        for j in range (size_temp): 
+            
+            if temp[j] == 0:
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z)
                 file.write( line +'\n')
      file.write('\n')          
      return zero_vals
@@ -131,7 +247,7 @@ def null_capturing_init(study_var,var,site_ID,file,cohort_id):
      file.write('\n') 
      return total_null_number
  
-def null_capturing(study_var,var,site_ID,file,cohort_id,site):
+def null_capturing_txtdoc(study_var,var,site_ID,file,cohort_id,site):
      ''' Records the number of instances of null values for a particular variable at each site and 
      writes to a file the study ID, site ID ,cohort ID and site associted with each null instance'''
      
@@ -154,6 +270,65 @@ def null_capturing(study_var,var,site_ID,file,cohort_id,site):
                 y = value_checker(site_ID[i][j])
                 z = value_checker(cohort_id[i][j])
                 line = "{0:20} {1:20} {2:20} {3:20}".format(str(w), str(x),str(y) ,str(z))
+                file.write( line +'\n')
+     file.write('\n') 
+     return total_null_number
+ 
+
+
+def null_capturing(study_var,var,site_ID,file,cohort_id,site):
+     ''' Records the number of instances of null values for a particular variable at each site and 
+     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance'''
+     
+     size = len(study_var)
+     total_vals = tot_values(var)
+     total_null_number =null_number(var)
+     site_values = list()
+     study_values = list()
+     site_ID_values =list()
+     cohort_ID_values = list()
+     
+     
+     for i in range(size):
+        size_temp = total_vals[i]
+        temp = var[i]
+        
+        for j in range (size_temp): 
+            
+            if (pd.isnull(temp[j]))== True:
+                 site_values .append(value_checker(site[i][j]))
+                 study_values.append(value_checker(study_var[i][j]))
+                 site_ID_values.append(value_checker(site_ID[i][j]))
+                 cohort_ID_values.append(value_checker(cohort_id[i][j]))
+
+     data = creating_DF_without_values (site_values,study_values,site_ID_values,cohort_ID_values)
+     data.to_excel(file , sheet_name='Null Values')
+     
+     return total_null_number
+ 
+def null_capturing_samefile(study_var,var,site_ID,file,cohort_id,site):
+     ''' Records the number of instances of null values for a particular variable at each site and 
+     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance'''
+     
+     size = len(study_var)
+     total_vals = tot_values(var)
+     file.write("Null Values"+'\n')
+     heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID" 
+     file.write( heading +"\n" )
+     total_null_number =null_number(var)
+     
+     for i in range(size):
+        size_temp = total_vals[i]
+        temp = var[i]
+        
+        for j in range (size_temp): 
+            
+            if (pd.isnull(temp[j]))== True:
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z)
                 file.write( line +'\n')
      file.write('\n') 
      return total_null_number
@@ -245,13 +420,13 @@ def value_checker(val):
         return val
         
 
-def LLD_inc_zero_capturing_init(site_var, lld,study_var,site_ID,file,cohort_id):
-    ''' Records the number values below the lower limit of detection (including zero) for a particular 
+def LLQ_inc_zero_capturing_init(site_var, llq,study_var,site_ID,file,cohort_id):
+    ''' Records the number of values below the lower limit of detection (including zero) for a particular 
      variable at each site and writes to a file the study ID, site ID and cohort ID 
      associted with these values'''
      
     size = len(site_var)
-    num_below_lld = list()
+    num_below_llq = list()
     total_vals = tot_values(site_var)
     count = 0
     file.write('\n'+"Values Below the Lower Limit of Detection (including \"0\" )" +'\n')
@@ -262,25 +437,25 @@ def LLD_inc_zero_capturing_init(site_var, lld,study_var,site_ID,file,cohort_id):
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] < lld:
+             if temp[j]< llq and temp[j] >= 0:
                 count= count + 1
                 x= value_checker(study_var[i][j])
                 y = value_checker(site_ID[i][j])
                 z = value_checker(cohort_id[i][j])
                 file.write(str(x) + "\t\t\t\t" + str(y) +  "\t\t\t\t" +str(z) +'\n')
-        num_below_lld.append(count)
+        num_below_llq.append(count)
         count = 0
     file.write('\n')  
-    return num_below_lld
+    return num_below_llq
 
 
-def LLD_inc_zero_capturing(site_var, lld,study_var,site_ID,file,cohort_id , site):
-    ''' Records the number values below the lower limit of detection (including zero) for a particular 
+def LLQ_inc_zero_capturing_txtdoc(site_var, llq,study_var,site_ID,file,cohort_id , site):
+    ''' Records the number of values below the lower limit of detection (including zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site
      associted with these values as well as the detected value'''
      
     size = len(site_var)
-    num_below_lld = list()
+    num_below_llq = list()
     total_vals = tot_values(site_var)
     count = 0
     file.write('\n'+"Values Below the Lower Limit of Detection (including \"0\" )" +'\n')
@@ -292,7 +467,7 @@ def LLD_inc_zero_capturing(site_var, lld,study_var,site_ID,file,cohort_id , site
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] < lld:
+             if temp[j]< llq and temp[j] >= 0:
                 count= count + 1
                 w = value_checker(site[i][j])
                 x= value_checker(study_var[i][j])
@@ -301,17 +476,121 @@ def LLD_inc_zero_capturing(site_var, lld,study_var,site_ID,file,cohort_id , site
                 a = value_checker(temp[j])
                 line = "{0:20} {1:20} {2:20} {3:20} {4:20}".format(str(w), str(x),str(y) ,str(z),str(a))
                 file.write( line +'\n')
-        num_below_lld.append(count)
+        num_below_llq.append(count)
         count = 0
     file.write('\n')  
-    return num_below_lld
+    return num_below_llq
 
-def LLD_inc_zero(site_var, lld):
+#def all_values(study_var,var,site_ID,file,cohort_id, site):
+#     ''' Records the number of instances of particular variable at each site and 
+#     writes to a file the study ID, site ID ,cohort ID and site number of the variable'''
+#     
+#     size = len(study_var)
+#     total_vals = tot_values(var)
+#     site_values = list()
+#     study_values = list()
+#     site_ID_values =list()
+#     cohort_ID_values = list()
+#     recorded_values = list()
+#     
+#     
+#     for i in range(size):
+#        size_temp = total_vals[i]
+#        temp = var[i]
+#        for j in range (size_temp): 
+#            
+#                site_values .append(value_checker(site[i][j]))
+#                study_values.append(value_checker(study_var[i][j]))
+#                site_ID_values.append(value_checker(site_ID[i][j]))
+#                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+#                recorded_values.append(value_checker(temp[j]))
+#                
+#                
+#     data = creating_DF_with_values (site_values,study_values,site_ID_values,cohort_ID_values,recorded_values)
+#     data.to_excel(file , sheet_name='All Values')
+#     return total_vals
+# 
+#def creating_DF_without_values (site_num,siteID,studyID,cohortID):
+#    tabled_data = pd.DataFrame({ "Site" : site_num ,
+#                        "Site ID " : siteID,
+#                         "Study ID" : studyID,
+#                         "Cohort ID" : cohortID })
+#
+#    return tabled_data 
+
+def LLQ_inc_zero_capturing(site_var, llq,study_var,site_ID,file,cohort_id , site):
+    ''' Records the number of values below the lower limit of detection (including zero) for a particular 
+     variable at each site and writes to a file the study ID, site ID ,cohort ID and site
+     associted with these values as well as the detected value'''
+     
+    size = len(site_var)
+    num_below_llq = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    site_values = list()
+    study_values = list()
+    site_ID_values =list()
+    cohort_ID_values = list()
+    recorded_values = list()
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j]< llq and temp[j] >= 0:
+                count= count + 1
+                site_values .append(value_checker(site[i][j]))
+                study_values.append(value_checker(study_var[i][j]))
+                site_ID_values.append(value_checker(site_ID[i][j]))
+                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+                recorded_values.append(value_checker(temp[j]))
+                
+        num_below_llq.append(count)
+        count = 0
+        
+    data = creating_DF_with_values (site_values,study_values,site_ID_values,cohort_ID_values,recorded_values)
+    data.to_excel(file , sheet_name='Below LLQ(inc 0)') 
+    return num_below_llq
+
+def LLQ_inc_zero_capturing_samefile(site_var, llq,study_var,site_ID,file,cohort_id , site):
+    ''' Records the number of values below the lower limit of detection (including zero) for a particular 
+     variable at each site and writes to a file the study ID, site ID ,cohort ID and site
+     associted with these values as well as the detected value'''
+     
+    size = len(site_var)
+    num_below_llq = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    file.write('\n'+"Values Below the Lower Limit of Detection (including \"0\" )" +'\n')
+    heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"+ ","+"Recorded Value"
+    file.write( heading +"\n" )
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j]< llq and temp[j] >= 0:
+                count= count + 1
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                a = value_checker(temp[j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z) + ','+ str(a)
+                file.write( line +'\n')
+        num_below_llq.append(count)
+        count = 0
+    file.write('\n')  
+    return num_below_llq
+
+def LLQ_inc_zero(site_var, llq):
     ''' Records the number of values for a particular variable at each site that are below 
     the lower limit of detection(including zero)'''
     
     size = len(site_var)
-    num_below_lld = list()
+    num_below_llq = list()
     total_vals = tot_values(site_var)
     count = 0
    
@@ -320,20 +599,20 @@ def LLD_inc_zero(site_var, lld):
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] < lld:
+             if temp[j]< llq and temp[j] >= 0:
                 count= count + 1
-        num_below_lld.append(count)
+        num_below_llq.append(count)
         count = 0
-    return num_below_lld
+    return num_below_llq
 
 
-def LLD_exc_zero_capturing_init(site_var, lld,study_var,site_ID,file,cohort_id):
+def LLQ_exc_zero_capturing_init(site_var, llq,study_var,site_ID,file,cohort_id):
     ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
      variable at each site and writes to a file the study ID, site ID and Cohort ID 
      associted with these values'''
      
     size = len(site_var)
-    num_below_lld = list()
+    num_below_llq = list()
     total_vals = tot_values(site_var)
     count = 0
     file.write('\n'+"Values Below Lower Limit of Detection (excluding \"0\" )" +'\n')
@@ -344,28 +623,28 @@ def LLD_exc_zero_capturing_init(site_var, lld,study_var,site_ID,file,cohort_id):
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] < lld and temp[j] != 0 :
+            if temp[j] < llq and temp[j] > 0 :
                 count= count + 1
                 x= value_checker(study_var[i][j])
                 y = value_checker(site_ID[i][j])
                 z = value_checker(cohort_id[i][j])
                 file.write(x + "\t\t\t\t" + y+  "\t\t\t\t" +z+'\n')
-        num_below_lld.append(count)
+        num_below_llq.append(count)
         count = 0
     file.write('\n')  
-    return num_below_lld
+    return num_below_llq
 
-def LLD_exc_zero_capturing(site_var, lld,study_var,site_ID,file,cohort_id, site):
+def LLQ_exc_zero_capturing_txtdoc(site_var, llq,study_var,site_ID,file,cohort_id, site):
     ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site 
      associted with these values as well as the detected value'''
      
     size = len(site_var)
-    num_below_lld = list()
+    num_below_llq = list()
     total_vals = tot_values(site_var)
     count = 0
     file.write('\n'+"Values Below Lower Limit of Detection (excluding \"0\" )" +'\n')
-    heading = "{0:20} {1:20} {2:20} {3:20} {4:20}".format("Site", "Site ID","Study ID" ,"Cohort ID","Recorded Value")
+    heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"+ ","+"Recorded Value"
     file.write( heading +"\n" )
    
     for i in range(size):
@@ -373,7 +652,7 @@ def LLD_exc_zero_capturing(site_var, lld,study_var,site_ID,file,cohort_id, site)
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] < lld and temp[j] != 0 :
+            if temp[j] < llq and temp[j] > 0 :
                 count= count + 1
                 w = value_checker(site[i][j])
                 x= value_checker(study_var[i][j])
@@ -382,21 +661,88 @@ def LLD_exc_zero_capturing(site_var, lld,study_var,site_ID,file,cohort_id, site)
                 a = value_checker(temp[j])
                 line = "{0:20} {1:20} {2:20} {3:20} {4:20}".format(str(w), str(x),str(y) ,str(z),str(a))
                 file.write( line +'\n')
-        num_below_lld.append(count)
+        num_below_llq.append(count)
         count = 0
     file.write('\n')  
-    return num_below_lld
+    return num_below_llq
+
+
+
+def LLQ_exc_zero_capturing(site_var, llq,study_var,site_ID,file,cohort_id, site):
+    ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
+     variable at each site and writes to a file the study ID, site ID ,cohort ID and site 
+     associted with these values as well as the detected value'''
+     
+    size = len(site_var)
+    num_below_llq = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    site_values = list()
+    study_values = list()
+    site_ID_values =list()
+    cohort_ID_values = list()
+    recorded_values = list()
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] < llq and temp[j] > 0 :
+                count= count + 1
+                site_values .append(value_checker(site[i][j]))
+                study_values.append(value_checker(study_var[i][j]))
+                site_ID_values.append(value_checker(site_ID[i][j]))
+                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+                recorded_values.append(value_checker(temp[j]))
+
+        num_below_llq.append(count)
+        count = 0
+    data = creating_DF_with_values (site_values,study_values,site_ID_values,cohort_ID_values,recorded_values)
+    data.to_excel(file , sheet_name='Below LLQ(exc 0)')
+    return num_below_llq
+
+def LLQ_exc_zero_capturing_samefile(site_var, llq,study_var,site_ID,file,cohort_id, site):
+    ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
+     variable at each site and writes to a file the study ID, site ID ,cohort ID and site 
+     associted with these values as well as the detected value'''
+     
+    size = len(site_var)
+    num_below_llq = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    file.write('\n'+"Values Below Lower Limit of Detection (excluding \"0\" )" +'\n')
+    heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"+ ","+"Recorded Value"
+    file.write( heading +"\n" )
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] < llq and temp[j] > 0 :
+                count= count + 1
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                a = value_checker(temp[j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z) + ','+ str(a)
+                file.write( line +'\n')
+        num_below_llq.append(count)
+        count = 0
+    file.write('\n')  
+    return num_below_llq
 
 
 
 
-
-def LLD_exc_zero(site_var, lld):
+def LLQ_exc_zero(site_var, llq):
     ''' Records the number of values for a particular variable at each site that are below 
     the lower limit of detection(excluding zero)'''
     
     size = len(site_var)
-    num_below_lld = list()
+    num_below_llq = list()
     total_vals = tot_values(site_var)
     count = 0
    
@@ -405,19 +751,19 @@ def LLD_exc_zero(site_var, lld):
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] < lld and temp[j] != 0 :
+            if temp[j] < llq and temp[j] > 0 :
                 count= count + 1
-        num_below_lld.append(count)
+        num_below_llq.append(count)
         count = 0
-    return num_below_lld
+    return num_below_llq
 
 
-def ULD(site_var, uld):
+def ULQ(site_var, ulq):
     ''' Records the number of values for a particular variable at each site that are above
     the upper limit of detection'''
     
     size = len(site_var)
-    num_above_uld= list()
+    num_above_ulq= list()
     total_vals = tot_values(site_var)
     count = 0
    
@@ -426,51 +772,51 @@ def ULD(site_var, uld):
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] > uld :
+            if temp[j] > ulq :
                 count= count + 1
-        num_above_uld.append(count)
+        num_above_ulq.append(count)
         count = 0
-    return num_above_uld
+    return num_above_ulq
 
 
-def ULD_capturing_init(site_var, uld,study_var,site_ID,file,cohort_id):
+def ULQ_capturing_init(site_var, ulq,study_var,site_ID,file,cohort_id):
     ''' Records the number of values above the upper limit of detection for a particular 
      variable at each site and writes to a file the study ID, site ID and Cohort ID 
      associted with these values'''
      
     size = len(site_var)
-    num_above_uld= list()
+    num_above_ulq= list()
     total_vals = tot_values(site_var)
     count = 0
     file.write('\n'+"Values Above the Upper Limit of Detection (excluding \"0\" )" +'\n')
-    file.write("Site ID "+"\t\t\t"+"Study ID" +"\t\t\t"+"Cohort ID" '\n')
+    file.write("Site ID "+"\t\t\t"+"Study ID" +"\t\t\t"+"Cohort ID" +'\n')
    
     for i in range(size):
         size_temp = total_vals[i]
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] > uld :
+            if temp[j] > ulq :
                 count= count + 1
                 x= value_checker(study_var[i][j])
                 y = value_checker(site_ID[i][j])
                 z = value_checker(cohort_id[i][j])
                 file.write(x + "\t\t\t\t" + y+  "\t\t\t\t" +z+'\n')
-        num_above_uld.append(count)
+        num_above_ulq.append(count)
         count = 0
     file.write('\n') 
-    return num_above_uld
+    return num_above_ulq
     
-def ULD_capturing(site_var, uld,study_var,site_ID,file,cohort_id,site ):
+def ULQ_capturing_txtdoc(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
     ''' Records the number of values above the upper limit of detection for a particular 
      variable at each site and writes to a file the study ID, site ID, cohort ID and site 
      associted with these values and the detected value'''
      
     size = len(site_var)
-    num_above_uld= list()
+    num_above_ulq= list()
     total_vals = tot_values(site_var)
     count = 0
-    file.write('\n'+"Values above Upper Limit of Detection" +'\n')
+    file.write('\n'+"Values above Upper Limit of Detection (excluding \"0\")" +'\n')
     heading = "{0:20} {1:20} {2:20} {3:20} {4:20}".format("Site", "Site ID","Study ID" ,"Cohort ID","Recorded Value")
     file.write( heading +"\n" )
    
@@ -479,7 +825,7 @@ def ULD_capturing(site_var, uld,study_var,site_ID,file,cohort_id,site ):
         temp = site_var[i]
         
         for j in range (size_temp): 
-            if temp[j] > uld :
+            if temp[j] > ulq :
                 count= count + 1
                 w = value_checker(site[i][j])
                 x= value_checker(study_var[i][j])
@@ -488,13 +834,211 @@ def ULD_capturing(site_var, uld,study_var,site_ID,file,cohort_id,site ):
                 a = value_checker(temp[j])
                 line = "{0:20} {1:20} {2:20} {3:20} {4:20}".format(str(w), str(x),str(y) ,str(z),str(a))
                 file.write( line +'\n')
-        num_above_uld.append(count)
+        num_above_ulq.append(count)
         count = 0
     file.write('\n') 
-    return num_above_uld
+    return num_above_ulq
+    
+
+    
+def ULQ_capturing(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
+    ''' Records the number of values above the upper limit of detection for a particular 
+     variable at each site and writes to a file the study ID, site ID, cohort ID and site 
+     associted with these values and the detected value'''
+     
+    size = len(site_var)
+    num_above_ulq= list()
+    total_vals = tot_values(site_var)
+    count = 0
+    #file.write('\n'+"Values above Upper Limit of Detection (excluding \"0\")" +'\n')
+    site_values = list()
+    study_values = list()
+    site_ID_values =list()
+    cohort_ID_values = list()
+    recorded_values = list()
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] > ulq :
+                count= count + 1
+                site_values .append(value_checker(site[i][j]))
+                study_values.append(value_checker(study_var[i][j]))
+                site_ID_values.append(value_checker(site_ID[i][j]))
+                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+                recorded_values.append(value_checker(temp[j]))
+                
+        num_above_ulq.append(count)
+        count = 0
+        
+    data = creating_DF_with_values (site_values,study_values,site_ID_values,cohort_ID_values,recorded_values)
+    data.to_excel(file , sheet_name='Above ULQ') 
+    return num_above_ulq
+
+def ULQ_capturing_samefile(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
+    ''' Records the number of values above the upper limit of detection for a particular 
+     variable at each site and writes to a file the study ID, site ID, cohort ID and site 
+     associted with these values and the detected value'''
+     
+    size = len(site_var)
+    num_above_ulq= list()
+    total_vals = tot_values(site_var)
+    count = 0
+    file.write('\n'+"Values above Upper Limit of Detection (excluding \"0\")" +'\n')
+    heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"+ ","+"Recorded Value"
+    file.write( heading +"\n" )
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] > ulq :
+                count= count + 1
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                a = value_checker(temp[j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z) + ','+ str(a)
+                file.write( line +'\n')
+        num_above_ulq.append(count)
+        count = 0
+    file.write('\n') 
+    return num_above_ulq
+
+def replaced_missing_capturing(site_var, replaced_missing,study_var,site_ID,file,cohort_id,site):
+    ''' Records the number of values which have had their true null fields replaced with the replaced_missing
+    value for a particular variable at each site and writes to a file the study ID, site ID ,cohort ID and site
+    associted with these values'''
+     
+    size = len(site_var)
+    num_replaced_missing = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    site_values = list()
+    study_values = list()
+    site_ID_values =list()
+    cohort_ID_values = list()
+    
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] == replaced_missing or temp[j] == str(replaced_missing) :
+                count= count + 1
+                site_values .append(value_checker(site[i][j]))
+                study_values.append(value_checker(study_var[i][j]))
+                site_ID_values.append(value_checker(site_ID[i][j]))
+                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+                      
+        num_replaced_missing.append(count)
+        count = 0
+    data = creating_DF_without_values (site_values,study_values,site_ID_values,cohort_ID_values)
+    data.to_excel(file , sheet_name="True Missing("+str(replaced_missing)+")") 
+    return num_replaced_missing
+
+def replaced_missing_capturing_samefile(site_var, replaced_missing,study_var,site_ID,file,cohort_id,site):
+    ''' Records the number of values which have had their true null fields replaced with the replaced_missing
+    value for a particular variable at each site and writes to a file the study ID, site ID ,cohort ID and site
+    associted with these values'''
+     
+    size = len(site_var)
+    num_replaced_missing = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    file.write('\n'+"Replaced True Missing Values ("+str(replaced_missing)+")"  +'\n')
+    heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"
+    file.write( heading +"\n" )
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] == replaced_missing or temp[j] == str(replaced_missing) :
+                count= count + 1
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z) 
+                file.write( line +'\n')
+        num_replaced_missing.append(count)
+        count = 0
+    file.write('\n')  
+    return num_replaced_missing
+
+def replaced_branching_capturing(site_var, replaced_branching,study_var,site_ID,file,cohort_id,site):
+    ''' Records the number of values which have had their branching derived null fields replaced with the 
+    replaced_branching value for a particular variable at each site and writes to a file the study ID, 
+    site ID ,cohort ID and site associted with these values'''
+     
+    size = len(site_var)
+    num_replaced_branching = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    #file.write('\n'+"Replaced Branching Missing Values ("+str(replaced_branching)+")"+'\n')
+    site_values = list()
+    study_values = list()
+    site_ID_values =list()
+    cohort_ID_values = list()
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] == replaced_branching or temp[j] == str(replaced_branching) :
+                count= count + 1
+                site_values .append(value_checker(site[i][j]))
+                study_values.append(value_checker(study_var[i][j]))
+                site_ID_values.append(value_checker(site_ID[i][j]))
+                cohort_ID_values.append(value_checker(cohort_id[i][j]))
+                
+        num_replaced_branching.append(count)
+        count = 0
+    data = creating_DF_without_values (site_values,study_values,site_ID_values,cohort_ID_values)
+    data.to_excel(file , sheet_name="Branching Missing("+str(replaced_branching)+")") 
+    return num_replaced_branching
+
+def replaced_branching_capturing_samefile(site_var, replaced_branching,study_var,site_ID,file,cohort_id,site):
+    ''' Records the number of values which have had their branching derived null fields replaced with the 
+    replaced_branching value for a particular variable at each site and writes to a file the study ID, 
+    site ID ,cohort ID and site associted with these values'''
+     
+    size = len(site_var)
+    num_replaced_branching = list()
+    total_vals = tot_values(site_var)
+    count = 0
+    file.write('\n'+"Replaced Branching Missing Values ("+str(replaced_branching)+")"+'\n')
+    heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"
+    file.write( heading +"\n" )
+   
+    for i in range(size):
+        size_temp = total_vals[i]
+        temp = site_var[i]
+        
+        for j in range (size_temp): 
+            if temp[j] == replaced_branching or temp[j] == str(replaced_branching) :
+                count= count + 1
+                w = value_checker(site[i][j])
+                x= value_checker(study_var[i][j])
+                y = value_checker(site_ID[i][j])
+                z = value_checker(cohort_id[i][j])
+                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z) 
+                file.write( line +'\n')
+        num_replaced_branching.append(count)
+        count = 0
+    file.write('\n')  
+    return num_replaced_branching
     
     
-    
-    
+
+
 
 

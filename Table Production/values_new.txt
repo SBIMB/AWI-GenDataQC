@@ -1,44 +1,38 @@
 Null Values
-Site                 Site ID              Study ID             Cohort ID           
-3                    GIV0H                Y0660110100001                           
-6                    AFQ0C                H3A1136                                  
-6                    AFR0D                H3A1137                                  
-6                    AFS0E                H3A1138                                  
+Site,Site ID ,Study ID,Cohort ID
+6,AFT0F,H3A1139, 
+6,AFW0H,H3A1141, 
+6,AFX0I,H3A1142, 
 
 
 Zero Values
-Site                 Site ID              Study ID             Cohort ID           
-6                    AFK0W                H3A1131                                  
-6                    AFL0X                H3A1132                                  
-6                    AFM0Y                H3A1133                                  
-6                    AFN0A                H3A1134                                  
-6                    AFP0B                H3A1135                                  
+Site,Site ID ,Study ID,Cohort ID
+6,AFK0W,H3A1131, 
+6,AFL0X,H3A1132, 
+6,AFM0Y,H3A1133, 
+6,AFN0A,H3A1134, 
+6,AFP0B,H3A1135, 
+6,AFQ0C,H3A1136, 
+6,AFR0D,H3A1137, 
+6,AFS0E,H3A1138, 
 
 
 Values Below the Lower Limit of Detection (including "0" )
-Site                 Site ID              Study ID             Cohort ID            Recorded Value      
-2                    VAZ0L                D0538                                     0.33                
-3                    ECG0Y                V0180680020001                            0.34                
-5                    PGN0X                EBF037013                                 0.35                
-6                    AFK0W                H3A1131                                   0.0                 
-6                    AFL0X                H3A1132                                   0.0                 
-6                    AFM0Y                H3A1133                                   0.0                 
-6                    AFN0A                H3A1134                                   0.0                 
-6                    AFP0B                H3A1135                                   0.0                 
+Site,Site ID ,Study ID,Cohort ID,Recorded Value
+6,AFK0W,H3A1131, ,0.0
+6,AFL0X,H3A1132, ,0.0
+6,AFM0Y,H3A1133, ,0.0
+6,AFN0A,H3A1134, ,0.0
+6,AFP0B,H3A1135, ,0.0
+6,AFQ0C,H3A1136, ,0.0
+6,AFR0D,H3A1137, ,0.0
+6,AFS0E,H3A1138, ,0.0
 
 
 Values Below Lower Limit of Detection (excluding "0" )
-Site                 Site ID              Study ID             Cohort ID            Recorded Value      
-2                    VAZ0L                D0538                                     0.33                
-3                    ECG0Y                V0180680020001                            0.34                
-5                    PGN0X                EBF037013                                 0.35                
+Site,Site ID ,Study ID,Cohort ID,Recorded Value
 
 
-Values Above the Upper Limit of Detection (excluding "0" )
-
-Values Below Lower Limit of Detection (excluding "0" )
-Site                 Site ID              Study ID             Cohort ID            Recorded Value      
-3                    GJZ0N                Y0100170100002                            90.0                
-6                    AFT0F                H3A1139                                   89.0                
-6                    AFX0I                H3A1142                                   89.0                
+Values above Upper Limit of Detection (excluding "0")
+Site,Site ID ,Study ID,Cohort ID,Recorded Value
 

@@ -1,19 +1,6 @@
 Null Values
-Site                 Site ID              Study ID             Cohort ID           
+Site ID 			Study ID			Cohort ID
 
 
 Zero Values
-Site                 Site ID              Study ID             Cohort ID           
-
-
-Values Below the Lower Limit of Detection (including "0" )
-Site                 Site ID              Study ID             Cohort ID            Recorded Value      
-
-
-Values Below Lower Limit of Detection (excluding "0" )
-Site                 Site ID              Study ID             Cohort ID            Recorded Value      
-
-
-Values above Upper Limit of Detection
-Site                 Site ID              Study ID             Cohort ID            Recorded Value      
-
+Site			Site ID			Study ID			Cohort ID

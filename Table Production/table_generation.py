@@ -7,27 +7,35 @@ from stat_table import max_per_site
 from stat_table import mean_per_site
 from stat_table import median_per_site
 from stat_table import standard_dev_per_site
-from Phenotype_table import below_LLD_to_con1
+from Phenotype_table import below_LLQ_to_con1
 from Phenotype_table import above_con1_exc_zero
 from Phenotype_table import con1_to_con2
 from Phenotype_table import greater_than_con
 from QC_table import zero_capturing
 from QC_table import null_capturing
-from QC_table import LLD_inc_zero_capturing
-from QC_table import LLD_exc_zero_capturing
-from QC_table import ULD_capturing
-from QC_table import tot_values
+from QC_table import LLQ_inc_zero_capturing
+from QC_table import LLQ_exc_zero_capturing
+from QC_table import ULQ_capturing
+from QC_table import replaced_missing_capturing
+from QC_table import replaced_branching_capturing
+from QC_table import all_values
 
-def skeleton(lld_val, uld_val,  condition1 ,  condition2 , condition3 , desired_var ,data_field1 , file_name , table_names ):
+
+
+def skeleton(llq_val, ulq_val,  condition1 ,  condition2 , condition3 , desired_var ,data_field1 ,
+             QC_filename , table_names,Phen_filename, replaced_missing, replaced_branching):
     
     
     #Initializing values  
-    values = open(file_name , "a+")
-    values.truncate()
+    
     writer = pd.ExcelWriter(table_names)
+    values = pd.ExcelWriter(QC_filename )
+    values_phen = pd.ExcelWriter(Phen_filename)
+    
+    
     sites = list([0,0,0,0,0,0])
     
-    glucose_all_sites =site_sorter(data_field1['site'], data_field1[desired_var],sites)
+    variable_all_sites =site_sorter(data_field1['site'], data_field1[desired_var],sites)
     site_ids = site_sorter(data_field1['site'], data_field1['site_id'], sites)
     study_ids = site_sorter(data_field1['site'], data_field1['study_id'], sites)
     cohort_ids = site_sorter(data_field1['site'], data_field1['Cohort_ID_c'], sites)
@@ -35,11 +43,11 @@ def skeleton(lld_val, uld_val,  condition1 ,  condition2 , condition3 , desired_
     
     #######
     ##Statistics table
-    minimum = min_per_site(glucose_all_sites)
-    maximum = max_per_site(glucose_all_sites)
-    mean =  mean_per_site(glucose_all_sites)
-    median = median_per_site (glucose_all_sites)
-    stand_dev = standard_dev_per_site(glucose_all_sites)
+    minimum = min_per_site(variable_all_sites,replaced_branching,replaced_missing)
+    maximum = max_per_site(variable_all_sites,replaced_branching,replaced_missing)
+    mean =  mean_per_site(variable_all_sites,replaced_branching,replaced_missing)
+    median = median_per_site (variable_all_sites,replaced_branching,replaced_missing)
+    stand_dev = standard_dev_per_site(variable_all_sites,replaced_branching,replaced_missing)
     sites = getNum_sites(sites)
     
     
@@ -49,50 +57,60 @@ def skeleton(lld_val, uld_val,  condition1 ,  condition2 , condition3 , desired_
                              'Median' : median,
                              'Standard Deviation' : stand_dev }, index=sites)
     
-    stat_table.to_excel(writer , sheet_name='Sheet1')
+    stat_table.to_excel(writer , sheet_name='Statistics')
     
     
     
     ###########
     ###QC table
-    total = tot_values(glucose_all_sites)
-    null_num = null_capturing(study_ids,glucose_all_sites,site_ids,values,cohort_ids,site_numbers)
-    zero_nums = zero_capturing(study_ids,glucose_all_sites,site_ids,values,cohort_ids,site_numbers)
-    LLD_inc_zero_num = LLD_inc_zero_capturing(glucose_all_sites,lld_val,study_ids,site_ids,values,cohort_ids,site_numbers)
-    LLD_exc_zero_num =LLD_exc_zero_capturing(glucose_all_sites,lld_val,study_ids,site_ids,values,cohort_ids,site_numbers)
-    ULD_num = ULD_capturing(glucose_all_sites, uld_val,study_ids,site_ids,values,cohort_ids,site_numbers)
-    
+    total = all_values(study_ids,variable_all_sites,site_ids,values,cohort_ids,site_numbers)
+    null_num = null_capturing(study_ids,variable_all_sites,site_ids,values,cohort_ids,site_numbers)
+    zero_nums = zero_capturing(study_ids,variable_all_sites,site_ids,values,cohort_ids,site_numbers)
+    LLQ_inc_zero_num = LLQ_inc_zero_capturing(variable_all_sites,llq_val,study_ids,site_ids,values,cohort_ids,site_numbers)
+    LLQ_exc_zero_num =LLQ_exc_zero_capturing(variable_all_sites,llq_val,study_ids,site_ids,values,cohort_ids,site_numbers)
+    ULQ_num = ULQ_capturing(variable_all_sites, ulq_val,study_ids,site_ids,values,cohort_ids,site_numbers)
+    replaced_missing_num = replaced_missing_capturing(variable_all_sites,replaced_missing,study_ids,site_ids,values,cohort_ids,site_numbers)
+    branching_missing_num = replaced_branching_capturing(variable_all_sites,replaced_branching,study_ids,site_ids,values,cohort_ids,site_numbers)
     
     QC_table = pd.DataFrame({ 'Total Values ' : total ,
-                            'Null Values ' : null_num,
-                             'Zero Values ' : zero_nums,
-                             'Values Below LLD (inc 0) ' : LLD_inc_zero_num,
-                             'Values Below LLD (exc 0)' :LLD_exc_zero_num , 
-                             'Values Above ULD ': ULD_num}, index=sites)
+                        'Null Values ' : null_num,
+                         'Zero Values ' : zero_nums,
+                         'Values Below LLQ (inc 0) ' : LLQ_inc_zero_num,
+                         'Values Below LLQ (exc 0)' :LLQ_exc_zero_num , 
+                         'Values Above ULQ ': ULQ_num,
+                         "Replaced True Missing Values ("+str(replaced_missing)+")": replaced_missing_num,
+                         "Replaced Branching Missing Values ("+str(replaced_branching)+")": branching_missing_num,
+                          }, index=sites)
     
-    QC_table.to_excel(writer , sheet_name='Sheet2')
+    QC_table.to_excel(writer , sheet_name='QC')
     
     
     
     ##########
     #Phenotype table
     
-    lower_limit = below_LLD_to_con1(glucose_all_sites,lld_val,condition1)
-    above_initial_limit = above_con1_exc_zero(glucose_all_sites,condition1)
-    between_con1_to_con2 = con1_to_con2 (glucose_all_sites,condition1,condition2)
-    greater_than_7 = greater_than_con(glucose_all_sites,condition2)
-    greater_than_11 = greater_than_con(glucose_all_sites,condition3)
-    
-    Phenotype_table = pd.DataFrame({ 'LLD =< Values < '+ str(condition1) : lower_limit ,
+    lower_limit = below_LLQ_to_con1(study_ids,variable_all_sites,site_ids,values_phen
+                                ,cohort_ids,site_numbers,llq_val, condition1)
+    above_initial_limit = above_con1_exc_zero(study_ids,variable_all_sites,site_ids,values_phen
+                                ,cohort_ids,site_numbers, condition1)
+    between_con1_to_con2 = con1_to_con2 (study_ids,variable_all_sites,site_ids,values_phen
+                                ,cohort_ids,site_numbers, condition1, condition2)
+    greater_than_7 = greater_than_con(study_ids,variable_all_sites,site_ids,values_phen
+                                ,cohort_ids,site_numbers, condition2)
+    greater_than_11 = greater_than_con(study_ids,variable_all_sites,site_ids,values_phen
+                                ,cohort_ids,site_numbers, condition3)
+    Phenotype_table = pd.DataFrame({ 'LLQ =< Values <= '+ str(condition1) : lower_limit ,
                             'Values <='+ str(condition1) +" (exc 0) " : above_initial_limit,
                              str(condition1) + ' < Values < ' + str(condition2)  : between_con1_to_con2,
                              'Values >= ' + str(condition2): greater_than_7,
                              'Values >= ' + str(condition3) :greater_than_11 }, index=sites)
     
-    Phenotype_table.to_excel(writer , sheet_name='Sheet3')
+    
+    Phenotype_table.to_excel(writer , sheet_name='Phenotype')
     
     
     writer.save()
-    values.close()
+    values.save()
+    values_phen.save()
 
 

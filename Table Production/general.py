@@ -44,6 +44,18 @@ def site_sorter(site_var, var,sites):
     return data
   
 
+def getNum_sites_negVals(sites,branching,missing):
+    '''Determines how many sites are represented in the .csv file read and returns the values necessary
+    for indexing the table '''
+    
+    values = list()
+    size = len(sites)
+    
+    for i in range(size):
+        if sites[i] ==1:
+            values.append(i+1)
+            
+    return values
 
 def getNum_sites(sites):
     '''Determines how many sites are represented in the .csv file read and returns the values necessary
@@ -51,6 +63,7 @@ def getNum_sites(sites):
     
     values = list()
     size = len(sites)
+    
     for i in range(size):
         if sites[i] ==1:
             values.append(i+1)
