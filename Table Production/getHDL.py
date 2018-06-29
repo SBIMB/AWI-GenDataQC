@@ -5,6 +5,8 @@ from table_generation import Phenotype_1condition_sex_2func
 
 
 def getHDL (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+    '''Function to generate QC ,statistics and phenotype specific data for the column 'hdl in the input spreadsheet.
+    This phenotype data is sex specific and is classified in both casses into 2 classes.'''
     
     desired_var = 'hdl'
     

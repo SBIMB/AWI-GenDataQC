@@ -1,9 +1,13 @@
+#All the functions needed to generate phenotype specific data for listed biomarkers
+
 from QC_table import tot_values
 from QC_table import value_checker
-from QC_table import creating_DF_without_values
 from QC_table import creating_DF_with_values
 
 def greater_than_con_sex(study_var,var,site_ID,file,cohort_id, site,limit,sex):
+    '''Function to capture the phenotype specific data above a certain limit (excluding that limit). 
+    This function is intended to be utilised for sex specific biomarkers and it returns 
+    either the male or female data. Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -37,6 +41,9 @@ def greater_than_con_sex(study_var,var,site_ID,file,cohort_id, site,limit,sex):
 
 
 def con1_to_con2_sex(study_var,var,site_ID,file,cohort_id, site,limit1,limit2,sex):
+    '''Function to capture the phenotype specific data between (and including) two limits. 
+    This function is intended to be utilised for sex specific biomarkers and it returns 
+    either the male or female data.Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -69,6 +76,9 @@ def con1_to_con2_sex(study_var,var,site_ID,file,cohort_id, site,limit1,limit2,se
     return end_var
 
 def not_con1_exc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex):
+    '''Function to capture the phenotype specific data between a certain limit and zero (both values excluded). 
+    This function is intended to be utilised for sex specific biomarkers and it returns 
+    either the male or female data.Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -99,6 +109,9 @@ def not_con1_exc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex):
     return end_var
 
 def not_con1_inc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex):
+    '''Function to capture the phenotype specific data between a certain limit and zero (with zero included and the 
+    value excluded). This function is intended to be utilised for sex specific biomarkers and it returns 
+    either the male or female data.Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -130,6 +143,9 @@ def not_con1_inc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex):
 
 
 def below_con1_exc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex):
+    '''Function to capture the phenotype specific data between a certain limit and zero (with zero excluded and the 
+    value included). This function is intended to be utilised for sex specific biomarkers and it returns 
+    either the male or female data.Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -160,6 +176,9 @@ def below_con1_exc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex
     return end_var
 
 def below_con1_inc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex):
+    '''Function to capture the phenotype specific data between a certain limit and zero (with zero included and the 
+    value included). This function is intended to be utilised for sex specific biomarkers and it returns 
+    either the male or female data.Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -190,6 +209,8 @@ def below_con1_inc_zero_sex(study_var,var,site_ID,file,cohort_id,site, limit,sex
     return end_var
 
 def below_LLQ_to_con1(study_var,var,site_ID,file,cohort_id, site,llq,limit):
+    '''Function to capture the phenotype specific data between a certain limit and the lower limit of quantification
+    (with the lower level of quantification included and the value included). Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -220,6 +241,9 @@ def below_LLQ_to_con1(study_var,var,site_ID,file,cohort_id, site,llq,limit):
     return end_var
 
 def below_LLQ_to_con1_samefile(study_var,var,site_ID,file,cohort_id, site,llq,limit):
+    '''Older Function to capture the phenotype specific data between a certain limit and the lower limit of quantification
+    (with the lower level of quantification included and the value included). Writes all data out to 
+    a single passed in file rather than different tabs in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -249,6 +273,9 @@ def below_LLQ_to_con1_samefile(study_var,var,site_ID,file,cohort_id, site,llq,li
     return end_var
 
 def below_LLQ_to_con1_original(var,llq,limit):
+    '''Older function which just captures all values between the lower limit of quantification(included) 
+    and a certain value(excluded) without writing to a file. '''
+    
     
     size = len(var)
     end_var= list()
@@ -267,6 +294,8 @@ def below_LLQ_to_con1_original(var,llq,limit):
     return end_var
 
 def above_con1_exc_zero_original(var, limit):
+    '''Older function which just captures all values between zero(excluded) 
+    and a certain value(included) without writing to a file. '''
     
     size = len(var)
     end_var= list()
@@ -288,6 +317,9 @@ def above_con1_exc_zero_original(var, limit):
 
 
 def above_con1_exc_zero(study_var,var,site_ID,file,cohort_id, site,limit):
+    '''Function to capture the phenotype specific data between a certain limit and zero
+    (with zero excluded and the limit included). Writes data to a seperate tab in an excel spreadsheet.'''
+    
     
     size = len(var)
     end_var= list()
@@ -319,6 +351,9 @@ def above_con1_exc_zero(study_var,var,site_ID,file,cohort_id, site,limit):
     return end_var
 
 def above_con1_exc_zero_samefile(study_var,var,site_ID,file,cohort_id, site,limit):
+    '''Function to capture the phenotype specific data between a certain limit and zero
+    (with zero excluded and the limit included). Writes all data out to 
+    a single passed in file rather than different tabs in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -350,6 +385,8 @@ def above_con1_exc_zero_samefile(study_var,var,site_ID,file,cohort_id, site,limi
 
     
 def con1_to_con2(study_var,var,site_ID,file,cohort_id, site,limit1,limit2):
+    '''Function to capture the phenotype specific data between two different limits (with both excluded)
+     Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -382,6 +419,8 @@ def con1_to_con2(study_var,var,site_ID,file,cohort_id, site,limit1,limit2):
     return end_var
 
 def con1_to_con2_samefile(study_var,var,site_ID,file,cohort_id, site,limit1,limit2):
+    '''Function to capture the phenotype specific data between two different limits (with both excluded)
+    Writes all data out to a single passed in file rather than different tabs in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -415,6 +454,8 @@ def con1_to_con2_samefile(study_var,var,site_ID,file,cohort_id, site,limit1,limi
 
 
 def con1_to_con2_original(var, limit1, limit2):
+    '''Older function which just captures all values between two limits (with both excluded)
+    without writing to a file. '''
     
     size = len(var)
     end_var= list()
@@ -435,6 +476,8 @@ def con1_to_con2_original(var, limit1, limit2):
 
     
 def greater_than_con(study_var,var,site_ID,file,cohort_id, site,limit):
+    '''Function to capture the phenotype specific data above a certain limit (limit included)
+    Writes data to a seperate tab in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -468,6 +511,8 @@ def greater_than_con(study_var,var,site_ID,file,cohort_id, site,limit):
 
 
 def greater_than_con_samefile(study_var,var,site_ID,file,cohort_id, site,limit):
+    '''Function to capture the phenotype specific data above a certain limit (limit included)
+    Writes all data out to a single passed in file rather than different tabs in an excel spreadsheet.'''
     
     size = len(var)
     end_var= list()
@@ -499,6 +544,8 @@ def greater_than_con_samefile(study_var,var,site_ID,file,cohort_id, site,limit):
 
 
 def greater_than_con_original(var, limit):
+    '''Older function which just captures all values above a certain limit (included)
+    without writing to a file. '''
     
     size = len(var)
     end_var= list()

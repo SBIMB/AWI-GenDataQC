@@ -5,6 +5,8 @@ from table_generation import stat_and_QC
 
 
 def getCreatinine_urine(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+    '''Function to generate QC and statistics specific data for the column 'ur_creatinine' in the input spreadsheet.'''
+    
     
     desired_var = 'ur_creatinine'
     

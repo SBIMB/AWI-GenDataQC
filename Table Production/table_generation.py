@@ -1,3 +1,6 @@
+#Functions utilised to build the specific QC, statistics and phenotype tables for each specific biomarker 
+
+
 import pandas as pd
 
 from general import site_sorter
@@ -35,7 +38,7 @@ from QC_table import all_values
 
 def stat_and_QC(llq_val, ulq_val , desired_var ,data_field1 ,
              QC_filename , table_names, replaced_missing, replaced_branching):
-    
+    '''Function to create a statistics and QC table in seperate tabs of an excel spreadsheet. '''
     
     #Initializing values  
     
@@ -100,6 +103,8 @@ def stat_and_QC(llq_val, ulq_val , desired_var ,data_field1 ,
     
 def Phenotype_5conditions(llq_val,  condition1 ,  condition2 , condition3 , desired_var ,data_field1 ,
               table_names,Phen_filename): 
+    '''Function to create a phenotype table in a seperate tab of an excel spreadsheet. Creates a table with 5 different 
+    conditions. '''
     
     values_phen = pd.ExcelWriter(Phen_filename)
     
@@ -137,6 +142,8 @@ def Phenotype_5conditions(llq_val,  condition1 ,  condition2 , condition3 , desi
     values_phen.save()
     
 def Phenotype_1conditions( condition1  , desired_var ,data_field1 ,table_names, Phen_filename): 
+    '''Function to create a phenotype table in a seperate tab of an excel spreadsheet. Creates a table with 1 
+    conditions. '''
     
     values_phen = pd.ExcelWriter(Phen_filename)
     
@@ -162,6 +169,8 @@ def Phenotype_1conditions( condition1  , desired_var ,data_field1 ,table_names, 
     values_phen.save()
     
 def Phenotype_1condition_sex_2func(  desired_var ,data_field1 ,table_names, Phen_filename,con_m,con_f): 
+    '''Function to create a phenotype table in a seperate tab of an excel spreadsheet. Creates a table with 2 
+    conditions. Takes sex into consideration. '''
     
     values_phen = pd.ExcelWriter(Phen_filename)
     
@@ -198,6 +207,8 @@ def Phenotype_1condition_sex_2func(  desired_var ,data_field1 ,table_names, Phen
     values_phen.save()
     
 def Phenotype_3condition_sex_4func(  desired_var ,data_field1 ,table_names, Phen_filename,con_m_1,con_m_2,con_f_1 ,con_f_2): 
+    '''Function to create a phenotype table in a seperate tab of an excel spreadsheet. Creates a table with 4 
+    conditions. Takes sex into consideration. '''
     
     values_phen = pd.ExcelWriter(Phen_filename)
     

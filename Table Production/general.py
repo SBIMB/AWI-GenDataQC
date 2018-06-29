@@ -1,5 +1,9 @@
+#File containing all the general sorting functions for division into site and sex based distributions
+
+
 def sex_sorter(sex_var, var ):
     '''Sorts a specified data field into different sexes'''
+    
     male= list()
     female= list()
     tot_Values = sex_var.shape[0]
@@ -20,6 +24,7 @@ def sex_sorter(sex_var, var ):
 
 def site_sorter(site_var, var,sites):
     '''Sorts a specified data field into the different sites'''
+    
     site_1= list()
     site_2= list()
     site_3= list()
@@ -102,7 +107,8 @@ def populate_sites(sites,init_data):
 
     
 def site_and_sex_sorter(site_var,sites_m,sites_f, var,sex_var):
-    '''Sorts a specified data field into the different sites'''
+    '''Sorts a specified data field into both different sexes as well as seperate sites'''
+    
     site_1_m= list()
     site_2_m= list()
     site_3_m= list()
@@ -189,20 +195,23 @@ def site_and_sex_sorter(site_var,sites_m,sites_f, var,sex_var):
     return  data_females, data_males
 
 def siteCompare_out(site_m,site_f):
+   '''Compares the two sites and takes the bigger of the two as the overall number
+   of sites represented by the dataset. This function doesn't return the actual sites value but rather a 1 for a site 
+   being present and a 0 if the site is absent'''
+   
    if site_m.count(1) > site_f.count(1) :
       return site_m
    else:
        return site_f
     
- 
-
 
 
 def siteCompare(site_m,site_f):
+   '''Compares the two sites and takes the bigger of the two as the overall number
+   of sites represented by the dataset. Returns the sites' actual value'''
+   
    if site_m.count(1) > site_f.count(1) :
       return getNum_sites(site_m)
    else:
        return getNum_sites(site_f)
     
- 
-

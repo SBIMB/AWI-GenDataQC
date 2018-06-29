@@ -5,6 +5,7 @@ from table_generation import stat_and_QC
 
 
 def getInsulin_serum (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+    '''Function to generate QC and statistics specific data for the column 'insulin' in the input spreadsheet.'''
     
     desired_var = 'insulin'
     

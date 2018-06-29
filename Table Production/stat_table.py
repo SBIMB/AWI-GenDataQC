@@ -1,8 +1,11 @@
+#All the functions needed to generate statistic specific data for listed biomarkers
+
 import numpy as num
 from QC_table import tot_values
 
 def min_per_site(all_sites,branching,missing):
-    '''Returns the minimum value for a particular variable at each site '''
+    '''Returns the minimum value for a particular variable at each site excluding the 
+    inserted values for branching and missing values. '''
     
     size = len(all_sites)
     minimum_total =list()
@@ -16,6 +19,8 @@ def min_per_site(all_sites,branching,missing):
     return  minimum_total
 
 def remove_inserted_values(all_sites,branching,missing):
+    '''Original logic for removing the inserted values for branching and missing values. '''
+    
     size = len(all_sites)
     new_site_var = list(all_sites)
     total_vals = tot_values(all_sites)
@@ -32,7 +37,8 @@ def remove_inserted_values(all_sites,branching,missing):
     return new_site_var
 
 def min_per_site_noneg(all_sites):
-    '''Returns the minimum value for a particular variable at each site '''
+    '''Original function to return the minimum value for a particular variable at each site. 
+    Does not exclude the inserted values for branching and missing values.'''
     
     size = len(all_sites)
 
@@ -45,34 +51,11 @@ def min_per_site_noneg(all_sites):
         
     return  minimum_total
     
-
-#size = len(site_var)
-#    num_replaced_missing = list()
-#    total_vals = tot_values(site_var)
-#    count = 0
-#    file.write('\n'+"Replaced True Missing Values ("+str(replaced_missing)+")"  +'\n')
-#    heading = "Site"+","+"Site ID "+","+"Study ID" +","+"Cohort ID"
-#    file.write( heading +"\n" )
-#   
-#    for i in range(size):
-#        size_temp = total_vals[i]
-#        temp = site_var[i]
-#        
-#        for j in range (size_temp): 
-#            if temp[j] == replaced_missing or temp[j] == str(replaced_missing) :
-#                count= count + 1
-#                w = value_checker(site[i][j])
-#                x= value_checker(study_var[i][j])
-#                y = value_checker(site_ID[i][j])
-#                z = value_checker(cohort_id[i][j])
-#                line = str(w) +','+ str(x) + ',' + str(y)+ ',' + str(z) 
-#                file.write( line +'\n')
-#        num_replaced_missing.append(count)
-#        count = 0
-#    file.write('\n')  
+ 
 
 def max_per_site(all_sites,branching,missing):
-    '''Returns the maximum value for a particular variable at each site '''
+    '''Returns the maximum value for a particular variable at each site excluding the 
+    inserted values for branching and missing values. '''
     
     size = len(all_sites)
     maximum_total =list()
@@ -88,7 +71,8 @@ def max_per_site(all_sites,branching,missing):
 
 
 def max_per_site_nonegs(all_sites):
-    '''Returns the maximum value for a particular variable at each site '''
+    '''Original function to return the maximum value for a particular variable at each site. 
+    Does not exclude the inserted values for branching and missing values'''
     
     size = len(all_sites)
     maximum_total =list()
@@ -101,7 +85,8 @@ def max_per_site_nonegs(all_sites):
     return  maximum_total
 
 def mean_per_site(all_sites,branching,missing):
-    '''Returns the mean value for a particular variable at each site '''
+    '''Returns the mean value for a particular variable at each site excluding the 
+    inserted values for branching and missing values.'''
     
     size = len(all_sites)
     mean_total =list()
@@ -115,7 +100,8 @@ def mean_per_site(all_sites,branching,missing):
     return  mean_total
 
 def mean_per_site_nonegs(all_sites):
-    '''Returns the mean value for a particular variable at each site '''
+    '''Original function to return the mean value for a particular variable at each site. Does 
+    not exclude the inserted values for branching and missing values. '''
     
     size = len(all_sites)
     mean_total =list()
@@ -129,7 +115,8 @@ def mean_per_site_nonegs(all_sites):
 
 
 def median_per_site(all_sites,branching,missing):
-    '''Returns the median value for a particular variable at each site '''
+    '''Returns the median value for a particular variable at each site excluding the 
+    inserted values for branching and missing values.'''
     
     size = len(all_sites)
     median_total =list()
@@ -143,7 +130,8 @@ def median_per_site(all_sites,branching,missing):
     return median_total
 
 def median_per_site_nonegs(all_sites):
-    '''Returns the median value for a particular variable at each site '''
+    '''Original function to return the median value for a particular variable at each site. 
+    Does not exclude the inserted values for branching and missing values.'''
     
     size = len(all_sites)
     median_total =list()
@@ -156,7 +144,8 @@ def median_per_site_nonegs(all_sites):
     return median_total
 
 def standard_dev_per_site(all_sites,branching,missing):
-    '''Returns the standard deviation for a particular variable at each site '''
+    '''Returns the standard deviation for a particular variable at each site excluding the 
+    inserted values for branching and missing values.'''
     
     size = len(all_sites)
     standard_dev_total =list()
@@ -170,7 +159,8 @@ def standard_dev_per_site(all_sites,branching,missing):
     return   standard_dev_total
 
 def standard_dev_per_site_nonegs(all_sites):
-    '''Returns the standard deviation for a particular variable at each site '''
+    '''Original function to return the standard deviation for a particular variable at each site.
+     Does not exclude the inserted values for branching and missing values.'''
     
     size = len(all_sites)
     standard_dev_total =list()

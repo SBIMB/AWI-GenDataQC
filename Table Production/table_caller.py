@@ -1,3 +1,6 @@
+# Code utilised to call the functions responsible for generating the tables
+#associated with each biomarker 
+
 import pandas as pd
 import datetime
 
@@ -15,10 +18,13 @@ from getACR  import  getACR
 
 #Set up variables 
 #replaced missing and replced branching must be negative values
+
 replaced_missing = -999
 replaced_branching = -555
+
 #directory_for_input = "/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/"
 #input_filename = "new.csv"
+
 directory_for_input = "/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/data/"
 input_filename = "all_sites_v2.5.2.csv"
 directory_for_output = "/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/QC_table/"

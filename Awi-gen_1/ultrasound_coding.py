@@ -1,3 +1,7 @@
+#Code to plot a box plot and histogram for the ultrasound variables subcutaneous fat and visceral fat
+
+
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -15,7 +19,7 @@ from variable_Grouping import histo_shape_plotter_sex
 from matplotlib.backends.backend_pdf import PdfPages
 #Test Data.csv
 
-data_field1 = pd.read_csv("/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/data.csv")
+data_field1 = pd.read_csv("/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/Data/all_sites_v2.5.2.csv")
 standard_deviation_limit = 0.6
 hist_bin_num = 10
 col = 'darkblue'

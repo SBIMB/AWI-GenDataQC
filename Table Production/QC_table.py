@@ -1,3 +1,5 @@
+#All the functions needed to generate QC specific data for listed biomarkers
+
 import numpy as num
 import pandas as pd
 
@@ -9,7 +11,8 @@ def tot_values(site_var):
 
 def all_values_samefile(study_var,var,site_ID,file,cohort_id, site):
      ''' Records the number of instances of particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site number of the variable'''
+     writes to a file the study ID, site ID ,cohort ID and site number of the variable. File 
+     does not contain different tabs. '''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -36,7 +39,8 @@ def all_values_samefile(study_var,var,site_ID,file,cohort_id, site):
  
 def all_values(study_var,var,site_ID,file,cohort_id, site):
      ''' Records the number of instances of particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site number of the variable'''
+     writes to a file the study ID, site ID ,cohort ID and site number of the variable.
+     File contains different tabs for each of the different conditions of interest. '''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -64,6 +68,8 @@ def all_values(study_var,var,site_ID,file,cohort_id, site):
      return total_vals
  
 def creating_DF_with_values (site_num,siteID,studyID,cohortID,values):
+    '''Generates a dataframe which includes sites (number) , site ID, study ID, cohort ID and recorded value. '''
+    
     tabled_data = pd.DataFrame({ "Site" : site_num ,
                         "Site ID " : siteID,
                          "Study ID" : studyID,
@@ -110,7 +116,8 @@ def zero_number(site_var):
                 
 def zero_capturing_init(study_var,var,site_ID,file,cohort_id):
      ''' Records the number of instances of zero values for a particular variable at each site and 
-     writes to a file the study ID, site ID and cohort ID associted with each zero instance'''
+     Writes to a file the study ID, site ID and cohort ID associted with each zero instance. This 
+     file does not contain different tabs for each interest area.'''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -134,7 +141,9 @@ def zero_capturing_init(study_var,var,site_ID,file,cohort_id):
  
 def zero_capturing_txtdoc(study_var,var,site_ID,file,cohort_id, site):
      ''' Records the number of instances of zero values for a particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance'''
+     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance. This 
+     file does not contain different tabs for each interest area. Associated formatting included has been 
+     optimised for a text file.'''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -160,6 +169,8 @@ def zero_capturing_txtdoc(study_var,var,site_ID,file,cohort_id, site):
      return zero_vals
  
 def creating_DF_without_values (site_num,siteID,studyID,cohortID):
+    '''Generates a dataframe which includes sites (number) , site ID, study ID and cohort ID. '''
+    
     tabled_data = pd.DataFrame({ "Site" : site_num ,
                         "Site ID " : siteID,
                          "Study ID" : studyID,
@@ -169,7 +180,8 @@ def creating_DF_without_values (site_num,siteID,studyID,cohortID):
  
 def zero_capturing(study_var,var,site_ID,file,cohort_id, site):
      ''' Records the number of instances of zero values for a particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance'''
+     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance. 
+     File is structured to have a different tab for each area of interest. '''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -198,7 +210,8 @@ def zero_capturing(study_var,var,site_ID,file,cohort_id, site):
 
 def zero_capturing_samefile(study_var,var,site_ID,file,cohort_id, site):
      ''' Records the number of instances of zero values for a particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance'''
+     writes to a file the study ID, site ID ,cohort ID and site number associted with each zero instance. File 
+     does not contain different tabs. '''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -225,7 +238,8 @@ def zero_capturing_samefile(study_var,var,site_ID,file,cohort_id, site):
 
 def null_capturing_init(study_var,var,site_ID,file,cohort_id):
      ''' Records the number of instances of null values for a particular variable at each site and 
-     writes to a file the study ID, site ID and cohort ID associted with each null instance'''
+     writes to a file the study ID, site ID and cohort ID associted with each null instance. File 
+     does not contain different tabs. '''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -249,7 +263,9 @@ def null_capturing_init(study_var,var,site_ID,file,cohort_id):
  
 def null_capturing_txtdoc(study_var,var,site_ID,file,cohort_id,site):
      ''' Records the number of instances of null values for a particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance'''
+     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance . This 
+     file does not contain different tabs for each interest area. Associated formatting included has been 
+     optimised for a text file.'''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -278,7 +294,8 @@ def null_capturing_txtdoc(study_var,var,site_ID,file,cohort_id,site):
 
 def null_capturing(study_var,var,site_ID,file,cohort_id,site):
      ''' Records the number of instances of null values for a particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance'''
+     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance. 
+     File is structured to have a different tab for each area of interest. '''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -308,7 +325,8 @@ def null_capturing(study_var,var,site_ID,file,cohort_id,site):
  
 def null_capturing_samefile(study_var,var,site_ID,file,cohort_id,site):
      ''' Records the number of instances of null values for a particular variable at each site and 
-     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance'''
+     writes to a file the study ID, site ID ,cohort ID and site associted with each null instance. File 
+     does not contain different tabs. '''
      
      size = len(study_var)
      total_vals = tot_values(var)
@@ -423,7 +441,7 @@ def value_checker(val):
 def LLQ_inc_zero_capturing_init(site_var, llq,study_var,site_ID,file,cohort_id):
     ''' Records the number of values below the lower limit of detection (including zero) for a particular 
      variable at each site and writes to a file the study ID, site ID and cohort ID 
-     associted with these values'''
+     associted with these values. File does not contain different tabs.'''
      
     size = len(site_var)
     num_below_llq = list()
@@ -452,7 +470,9 @@ def LLQ_inc_zero_capturing_init(site_var, llq,study_var,site_ID,file,cohort_id):
 def LLQ_inc_zero_capturing_txtdoc(site_var, llq,study_var,site_ID,file,cohort_id , site):
     ''' Records the number of values below the lower limit of detection (including zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site
-     associted with these values as well as the detected value'''
+     associted with these values as well as the detected value. This 
+     file does not contain different tabs for each interest area. Associated formatting included has been 
+     optimised for a text file.'''
      
     size = len(site_var)
     num_below_llq = list()
@@ -481,47 +501,12 @@ def LLQ_inc_zero_capturing_txtdoc(site_var, llq,study_var,site_ID,file,cohort_id
     file.write('\n')  
     return num_below_llq
 
-#def all_values(study_var,var,site_ID,file,cohort_id, site):
-#     ''' Records the number of instances of particular variable at each site and 
-#     writes to a file the study ID, site ID ,cohort ID and site number of the variable'''
-#     
-#     size = len(study_var)
-#     total_vals = tot_values(var)
-#     site_values = list()
-#     study_values = list()
-#     site_ID_values =list()
-#     cohort_ID_values = list()
-#     recorded_values = list()
-#     
-#     
-#     for i in range(size):
-#        size_temp = total_vals[i]
-#        temp = var[i]
-#        for j in range (size_temp): 
-#            
-#                site_values .append(value_checker(site[i][j]))
-#                study_values.append(value_checker(study_var[i][j]))
-#                site_ID_values.append(value_checker(site_ID[i][j]))
-#                cohort_ID_values.append(value_checker(cohort_id[i][j]))
-#                recorded_values.append(value_checker(temp[j]))
-#                
-#                
-#     data = creating_DF_with_values (site_values,study_values,site_ID_values,cohort_ID_values,recorded_values)
-#     data.to_excel(file , sheet_name='All Values')
-#     return total_vals
-# 
-#def creating_DF_without_values (site_num,siteID,studyID,cohortID):
-#    tabled_data = pd.DataFrame({ "Site" : site_num ,
-#                        "Site ID " : siteID,
-#                         "Study ID" : studyID,
-#                         "Cohort ID" : cohortID })
-#
-#    return tabled_data 
 
 def LLQ_inc_zero_capturing(site_var, llq,study_var,site_ID,file,cohort_id , site):
     ''' Records the number of values below the lower limit of detection (including zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site
-     associted with these values as well as the detected value'''
+     associted with these values as well as the detected value. 
+     File is structured to have a different tab for each area of interest. '''
      
     size = len(site_var)
     num_below_llq = list()
@@ -556,7 +541,8 @@ def LLQ_inc_zero_capturing(site_var, llq,study_var,site_ID,file,cohort_id , site
 def LLQ_inc_zero_capturing_samefile(site_var, llq,study_var,site_ID,file,cohort_id , site):
     ''' Records the number of values below the lower limit of detection (including zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site
-     associted with these values as well as the detected value'''
+     associted with these values as well as the detected value.  File 
+     does not contain different tabs.'''
      
     size = len(site_var)
     num_below_llq = list()
@@ -609,7 +595,7 @@ def LLQ_inc_zero(site_var, llq):
 def LLQ_exc_zero_capturing_init(site_var, llq,study_var,site_ID,file,cohort_id):
     ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
      variable at each site and writes to a file the study ID, site ID and Cohort ID 
-     associted with these values'''
+     associted with these values. File does not contain different tabs.'''
      
     size = len(site_var)
     num_below_llq = list()
@@ -637,7 +623,9 @@ def LLQ_exc_zero_capturing_init(site_var, llq,study_var,site_ID,file,cohort_id):
 def LLQ_exc_zero_capturing_txtdoc(site_var, llq,study_var,site_ID,file,cohort_id, site):
     ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site 
-     associted with these values as well as the detected value'''
+     associted with these values as well as the detected value. This 
+     file does not contain different tabs for each interest area. Associated formatting included has been 
+     optimised for a text file.'''
      
     size = len(site_var)
     num_below_llq = list()
@@ -671,7 +659,8 @@ def LLQ_exc_zero_capturing_txtdoc(site_var, llq,study_var,site_ID,file,cohort_id
 def LLQ_exc_zero_capturing(site_var, llq,study_var,site_ID,file,cohort_id, site):
     ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site 
-     associted with these values as well as the detected value'''
+     associted with these values as well as the detected value. 
+     File is structured to have a different tab for each area of interest.'''
      
     size = len(site_var)
     num_below_llq = list()
@@ -705,7 +694,8 @@ def LLQ_exc_zero_capturing(site_var, llq,study_var,site_ID,file,cohort_id, site)
 def LLQ_exc_zero_capturing_samefile(site_var, llq,study_var,site_ID,file,cohort_id, site):
     ''' Records the number of values below the lower limit of detection (excluding zero) for a particular 
      variable at each site and writes to a file the study ID, site ID ,cohort ID and site 
-     associted with these values as well as the detected value'''
+     associted with these values as well as the detected value.  File 
+     does not contain different tabs.'''
      
     size = len(site_var)
     num_below_llq = list()
@@ -739,7 +729,7 @@ def LLQ_exc_zero_capturing_samefile(site_var, llq,study_var,site_ID,file,cohort_
 
 def LLQ_exc_zero(site_var, llq):
     ''' Records the number of values for a particular variable at each site that are below 
-    the lower limit of detection(excluding zero)'''
+    the lower limit of detection(excluding zero).'''
     
     size = len(site_var)
     num_below_llq = list()
@@ -760,7 +750,7 @@ def LLQ_exc_zero(site_var, llq):
 
 def ULQ(site_var, ulq):
     ''' Records the number of values for a particular variable at each site that are above
-    the upper limit of detection'''
+    the upper limit of detection.'''
     
     size = len(site_var)
     num_above_ulq= list()
@@ -782,7 +772,7 @@ def ULQ(site_var, ulq):
 def ULQ_capturing_init(site_var, ulq,study_var,site_ID,file,cohort_id):
     ''' Records the number of values above the upper limit of detection for a particular 
      variable at each site and writes to a file the study ID, site ID and Cohort ID 
-     associted with these values'''
+     associted with these values. File does not contain different tabs.'''
      
     size = len(site_var)
     num_above_ulq= list()
@@ -810,7 +800,9 @@ def ULQ_capturing_init(site_var, ulq,study_var,site_ID,file,cohort_id):
 def ULQ_capturing_txtdoc(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
     ''' Records the number of values above the upper limit of detection for a particular 
      variable at each site and writes to a file the study ID, site ID, cohort ID and site 
-     associted with these values and the detected value'''
+     associted with these values and the detected value. This 
+     file does not contain different tabs for each interest area. Associated formatting included has been 
+     optimised for a text file.'''
      
     size = len(site_var)
     num_above_ulq= list()
@@ -844,7 +836,8 @@ def ULQ_capturing_txtdoc(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
 def ULQ_capturing(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
     ''' Records the number of values above the upper limit of detection for a particular 
      variable at each site and writes to a file the study ID, site ID, cohort ID and site 
-     associted with these values and the detected value'''
+     associted with these values and the detected value. 
+     File is structured to have a different tab for each area of interest.'''
      
     size = len(site_var)
     num_above_ulq= list()
@@ -880,7 +873,8 @@ def ULQ_capturing(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
 def ULQ_capturing_samefile(site_var, ulq,study_var,site_ID,file,cohort_id,site ):
     ''' Records the number of values above the upper limit of detection for a particular 
      variable at each site and writes to a file the study ID, site ID, cohort ID and site 
-     associted with these values and the detected value'''
+     associted with these values and the detected value.  File 
+     does not contain different tabs.'''
      
     size = len(site_var)
     num_above_ulq= list()
@@ -912,7 +906,7 @@ def ULQ_capturing_samefile(site_var, ulq,study_var,site_ID,file,cohort_id,site )
 def replaced_missing_capturing(site_var, replaced_missing,study_var,site_ID,file,cohort_id,site):
     ''' Records the number of values which have had their true null fields replaced with the replaced_missing
     value for a particular variable at each site and writes to a file the study ID, site ID ,cohort ID and site
-    associted with these values'''
+    associted with these values. File is structured to have a different tab for each area of interest.'''
      
     size = len(site_var)
     num_replaced_missing = list()
@@ -945,7 +939,7 @@ def replaced_missing_capturing(site_var, replaced_missing,study_var,site_ID,file
 def replaced_missing_capturing_samefile(site_var, replaced_missing,study_var,site_ID,file,cohort_id,site):
     ''' Records the number of values which have had their true null fields replaced with the replaced_missing
     value for a particular variable at each site and writes to a file the study ID, site ID ,cohort ID and site
-    associted with these values'''
+    associted with these values. File does not contain different tabs.'''
      
     size = len(site_var)
     num_replaced_missing = list()
@@ -976,7 +970,7 @@ def replaced_missing_capturing_samefile(site_var, replaced_missing,study_var,sit
 def replaced_branching_capturing(site_var, replaced_branching,study_var,site_ID,file,cohort_id,site):
     ''' Records the number of values which have had their branching derived null fields replaced with the 
     replaced_branching value for a particular variable at each site and writes to a file the study ID, 
-    site ID ,cohort ID and site associted with these values'''
+    site ID ,cohort ID and site associted with these values. File is structured to have a different tab for each area of interest.'''
      
     size = len(site_var)
     num_replaced_branching = list()
@@ -1009,7 +1003,8 @@ def replaced_branching_capturing(site_var, replaced_branching,study_var,site_ID,
 def replaced_branching_capturing_samefile(site_var, replaced_branching,study_var,site_ID,file,cohort_id,site):
     ''' Records the number of values which have had their branching derived null fields replaced with the 
     replaced_branching value for a particular variable at each site and writes to a file the study ID, 
-    site ID ,cohort ID and site associted with these values'''
+    site ID ,cohort ID and site associted with these values. File 
+     does not contain different tabs.'''
      
     size = len(site_var)
     num_replaced_branching = list()

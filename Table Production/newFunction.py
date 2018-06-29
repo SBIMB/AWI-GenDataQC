@@ -1,3 +1,8 @@
+#Original code for checking whether the site_and_sex_sorter function needed for the hdl and acr biomarkers was 
+#functioning optimally. The hdl variable was investigated via modifications made to the fasting_glucose.py code
+
+
+
 from functionTester import site_and_sex_sorter
 from functionTester import siteCompare
 
@@ -16,8 +21,8 @@ from stat_table import median_per_site
 from stat_table import standard_dev_per_site
 
 
-from Phenotype_table import below_con1_exc_zero
-from Phenotype_table import below_con1_inc_zero
+from Phenotype_table import below_con1_exc_zero_sex
+from Phenotype_table import below_con1_inc_zero_sex
 
 
 from QC_table import zero_capturing
@@ -127,11 +132,11 @@ sites_true = siteCompare(sites_m,sites_f)
 con_m=1.0
 con_f =1.3
 
-inc_zero_males = below_con1_inc_zero(study_ids_m,HDL_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m,'Male')
+inc_zero_males = below_con1_inc_zero_sex(study_ids_m,HDL_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m,'Male')
 #print(inc_zero_males)
-exc_zero_males = below_con1_exc_zero(study_ids_m,HDL_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m,'Male')
-inc_zero_females = below_con1_inc_zero(study_ids_f,HDL_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f,'Female')
-exc_zero_females = below_con1_exc_zero(study_ids_f,HDL_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f,'Female')
+exc_zero_males = below_con1_exc_zero_sex(study_ids_m,HDL_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m,'Male')
+inc_zero_females = below_con1_inc_zero_sex(study_ids_f,HDL_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f,'Female')
+exc_zero_females = below_con1_exc_zero_sex(study_ids_f,HDL_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f,'Female')
 #print(inc_zero_females)
 
 #lower_limit = below_LLQ_to_con1(study_ids,glucose_all_sites,site_ids,values_phen

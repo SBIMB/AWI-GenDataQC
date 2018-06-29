@@ -1,7 +1,7 @@
+#The original testing function for fasting glucose which 
+#outputs the QC table, statistics table and Phenotype table 
+
 import pandas as pd
-
-
-
 
 from general import site_sorter
 from general import getNum_sites
@@ -32,15 +32,11 @@ replaced_missing = -999
 replaced_branching = -555
 
 #Initializing values 
-#open("values-QC.xls", "w+").close()
-#values = open("values-QC.xls", "a+")
-#values.truncate()
+
 values = pd.ExcelWriter("values-QC.xls")
 values_phen = pd.ExcelWriter("values-Phenotype.xls")
 
-#open("values-Phenotype.csv", "w+").close()
-#values_phen = open("values-Phenotype.csv", "a+")
-#values_phen.truncate()
+
 
 
 writer = pd.ExcelWriter("output.xls")
@@ -125,9 +121,9 @@ Phenotype_table.to_excel(writer , sheet_name='Sheet3')
 
 
 writer.save()
-#values.close()
+
 values.save()
-#values_phen.close()
+
 values_phen.save()
 
 

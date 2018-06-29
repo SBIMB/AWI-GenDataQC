@@ -6,6 +6,8 @@ from table_generation import Phenotype_1conditions
 
 
 def getTriglycerides (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+    '''Function to generate QC ,statistics and phenotype specific data for the column 'triglycerides' in the input spreadsheet.
+    The phenotype specific data is classified based on 1 condition'''
 
     desired_var = 'triglycerides'
     

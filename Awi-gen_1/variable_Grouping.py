@@ -1,3 +1,6 @@
+#Functions necessary to group variables into both site and sex.
+
+
 import pandas as pd
 from plotters  import histo_shape_plotter
 

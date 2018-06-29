@@ -1,3 +1,6 @@
+#Storage for original instnces of the below named functions before modification  
+
+
 #def all_values(study_var,var,site_ID,file,cohort_id, site):
 #     ''' Records the number of instances of particular variable at each site and 
 #     writes to a file the study ID, site ID ,cohort ID and site number of the variable'''
