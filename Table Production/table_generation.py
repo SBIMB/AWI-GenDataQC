@@ -2,6 +2,8 @@ import pandas as pd
 
 from general import site_sorter
 from general import getNum_sites
+from general import site_and_sex_sorter
+from general import siteCompare
 from stat_table import min_per_site
 from stat_table import max_per_site
 from stat_table import mean_per_site
@@ -11,6 +13,12 @@ from Phenotype_table import below_LLQ_to_con1
 from Phenotype_table import above_con1_exc_zero
 from Phenotype_table import con1_to_con2
 from Phenotype_table import greater_than_con
+from Phenotype_table import below_con1_exc_zero_sex
+from Phenotype_table import below_con1_inc_zero_sex
+from Phenotype_table import greater_than_con_sex
+from Phenotype_table import con1_to_con2_sex
+from Phenotype_table import not_con1_exc_zero_sex
+from Phenotype_table import not_con1_inc_zero_sex
 from QC_table import zero_capturing
 from QC_table import null_capturing
 from QC_table import LLQ_inc_zero_capturing
@@ -19,6 +27,9 @@ from QC_table import ULQ_capturing
 from QC_table import replaced_missing_capturing
 from QC_table import replaced_branching_capturing
 from QC_table import all_values
+
+
+
 
 
 
@@ -150,8 +161,85 @@ def Phenotype_1conditions( condition1  , desired_var ,data_field1 ,table_names, 
     Phenotype_table.to_excel(table_names , sheet_name='Phenotype')
     values_phen.save()
     
+def Phenotype_1condition_sex_2func(  desired_var ,data_field1 ,table_names, Phen_filename,con_m,con_f): 
+    
+    values_phen = pd.ExcelWriter(Phen_filename)
+    
+    sites_m = list([0,0,0,0,0,0])
+    sites_f = list([0,0,0,0,0,0])
+    
+
+    
+    [var_f,var_m] = site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1[desired_var],data_field1['sex'])
+    [site_ids_f, site_ids_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['site_id'],data_field1['sex'])
+    [study_ids_f, study_ids_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['study_id'],data_field1['sex'])
+    [cohort_ids_f, cohort_ids_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['Cohort_ID_c'],data_field1['sex'])
+    [site_nums_f, site_nums_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['site'],data_field1['sex'])
+    sites_true = siteCompare(sites_m,sites_f)
+  
+
+    
+    ##########
+    #Phenotype table
+    inc_zero_males = below_con1_inc_zero_sex(study_ids_m,var_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m,'Male')
+    exc_zero_males = below_con1_exc_zero_sex(study_ids_m,var_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m,'Male')
+    inc_zero_females = below_con1_inc_zero_sex(study_ids_f,var_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f,'Female')
+    exc_zero_females = below_con1_exc_zero_sex(study_ids_f,var_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f,'Female')
+    
+    
+    
+    Phenotype_table = pd.DataFrame({ '0 < Male Values <= '+ str(con_m)   : exc_zero_males,
+                                '0 =< Male Values <= '+ str(con_m) : inc_zero_males ,
+                             '0 < Female Values <= '+ str(con_f): exc_zero_females,
+                             '0 =< Female Values <= '+ str(con_f) : inc_zero_females}, index = sites_true)
+    
+    
+    Phenotype_table.to_excel(table_names , sheet_name='Phenotype')
+    values_phen.save()
+    
+def Phenotype_3condition_sex_4func(  desired_var ,data_field1 ,table_names, Phen_filename,con_m_1,con_m_2,con_f_1 ,con_f_2): 
+    
+    values_phen = pd.ExcelWriter(Phen_filename)
+    
+    sites_m = list([0,0,0,0,0,0])
+    sites_f = list([0,0,0,0,0,0])
+
+    
+    [var_f,var_m] = site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1[desired_var],data_field1['sex'])
+    [site_ids_f, site_ids_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['site_id'],data_field1['sex'])
+    [study_ids_f, study_ids_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['study_id'],data_field1['sex'])
+    [cohort_ids_f, cohort_ids_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['Cohort_ID_c'],data_field1['sex'])
+    [site_nums_f, site_nums_m]=site_and_sex_sorter(data_field1['site'],sites_m,sites_f, data_field1['site'],data_field1['sex'])
+    sites_true = siteCompare(sites_m,sites_f)
+  
+    ##########
+    #Phenotype table
+    inc_zero_males = not_con1_inc_zero_sex(study_ids_m,var_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m_1,'Male')
+    exc_zero_males = not_con1_exc_zero_sex(study_ids_m,var_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m_1,'Male')
+    con1_to_con2_males = con1_to_con2_sex(study_ids_m,var_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m_1,con_m_2,'Male')
+    greater_than_males = greater_than_con_sex(study_ids_m,var_m,site_ids_m,values_phen,cohort_ids_m,site_nums_m, con_m_2,'Male')
+    
+    inc_zero_females = not_con1_inc_zero_sex(study_ids_f,var_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f_1,'Female')
+    exc_zero_females = not_con1_exc_zero_sex(study_ids_f,var_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f_1,'Female')
+    con1_to_con2_females = con1_to_con2_sex(study_ids_f,var_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f_1,con_f_2,'Female')
+    greater_than_females = greater_than_con_sex(study_ids_f,var_f,site_ids_f,values_phen,cohort_ids_f,site_nums_f, con_f_1,'Female')
+    
+    
+    Phenotype_table = pd.DataFrame({ '0 <= Male Values < '+ str(con_m_1)   : inc_zero_males,
+                                '0 < Male Values < '+ str(con_m_1) : exc_zero_males ,
+                                str(con_m_1)+ '<= Male Values <= '+ str(con_m_2) : con1_to_con2_males ,
+                                str(con_m_2) + '< Male Values ' : greater_than_males ,
+                              '0 <= Female Values <= '+ str(con_f_1)  : inc_zero_females,
+                             '0 < Female Values < '+ str(con_f_1) : exc_zero_females,
+                             str(con_f_1)+ '<= Female Values <= '+ str(con_f_2) : con1_to_con2_females ,
+                              str(con_f_2) + '< Female Values ' : greater_than_females }, index = sites_true)
+    
+    
+    Phenotype_table.to_excel(table_names , sheet_name='Phenotype')
+    values_phen.save()
     
     
     
     
     
+
