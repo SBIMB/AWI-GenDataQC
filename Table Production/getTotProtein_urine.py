@@ -1,10 +1,9 @@
 import pandas as pd
 
-from table_generation import stat_and_QC
+from table_generation import stat_and_QCC
+from globalVariables import *
 
-
-
-def getTotProtein_urine(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+def getTotProtein_urine():
     '''Function to generate QC and statistics specific data for the column 'ur_protein' in the input spreadsheet.'''
     
     desired_var = 'ur_protein'
@@ -21,9 +20,8 @@ def getTotProtein_urine(replaced_missing,replaced_branching,input_filename,data_
 
     
     
-    stat_and_QC(llq_TotProtein, ulq_TotProtein ,desired_var ,data_field1 , output_values_QC_TotProtein, writer_TotProtein , 
+    stat_and_QCC(llq_TotProtein, ulq_TotProtein ,desired_var ,data_field1 , output_values_QC_TotProtein, writer_TotProtein , 
                 replaced_missing, replaced_branching  )
     
     
     writer_TotProtein.save()
-    

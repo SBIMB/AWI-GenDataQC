@@ -14,7 +14,7 @@ from variable_Grouping import histo_shape_plotter_sites
 from variable_Grouping import histo_shape_plotter_sex
 
 
-data_field1 = pd.read_csv("/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/Data/all_sites_v2.5.2.csv")
+data_field1 = pd.read_csv("Data/all_sites_v2.5.2.csv")
 col = 'darkblue'
 hist_bin_num = 10
 

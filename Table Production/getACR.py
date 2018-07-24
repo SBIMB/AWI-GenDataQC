@@ -1,9 +1,10 @@
 
 import pandas as pd
 from table_generation import Phenotype_3condition_sex_4func
+from globalVariables import *
 
-
-def getACR (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+'''def getACR (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):'''
+def getACR ():
     '''Function to generate phenotype specific data capturing for the column acr in the input spreadsheet.
     This phenotype data is sex specific and is classified in both casses into 4 classes.'''
 

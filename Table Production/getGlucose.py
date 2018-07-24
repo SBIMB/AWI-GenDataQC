@@ -1,9 +1,10 @@
 import pandas as pd
 
-from table_generation import stat_and_QC
+from table_generation import stat_and_QCC
 from table_generation import Phenotype_5conditions
+from globalVariables import *
 
-def getGlucose (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+def getGlucose ():
     '''Function to generate QC ,statistics and phenotype specific data for the column 'glucose'' in the input spreadsheet.
     The phenotype specific data is classified into 5 different classes'''
     
@@ -25,7 +26,7 @@ def getGlucose (replaced_missing,replaced_branching,input_filename,data_field1,d
     
    
     
-    stat_and_QC(llq_glucose, ulq_glucose ,desired_var ,data_field1 , output_values_QC_glucose , writer_glucose, 
+    stat_and_QCC(llq_glucose, ulq_glucose ,desired_var ,data_field1 , output_values_QC_glucose , writer_glucose, 
                 replaced_missing, replaced_branching  )
     
     Phenotype_5conditions(llq_glucose, con1_glucose, con2_glucose ,

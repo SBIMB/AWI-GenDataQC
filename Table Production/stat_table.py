@@ -50,9 +50,7 @@ def min_per_site_noneg(all_sites):
         minimum_total.append(minimum)
         
     return  minimum_total
-    
  
-
 def max_per_site(all_sites,branching,missing):
     '''Returns the maximum value for a particular variable at each site excluding the 
     inserted values for branching and missing values. '''
@@ -67,8 +65,6 @@ def max_per_site(all_sites,branching,missing):
         maximum_total.append(maximum)
         
     return  maximum_total
-
-
 
 def max_per_site_nonegs(all_sites):
     '''Original function to return the maximum value for a particular variable at each site. 
@@ -113,7 +109,6 @@ def mean_per_site_nonegs(all_sites):
         
     return  mean_total
 
-
 def median_per_site(all_sites,branching,missing):
     '''Returns the median value for a particular variable at each site excluding the 
     inserted values for branching and missing values.'''
@@ -143,7 +138,7 @@ def median_per_site_nonegs(all_sites):
         
     return median_total
 
-def standard_dev_per_site(all_sites,branching,missing):
+def std_dev_per_site(all_sites,branching,missing):
     '''Returns the standard deviation for a particular variable at each site excluding the 
     inserted values for branching and missing values.'''
     
@@ -158,7 +153,7 @@ def standard_dev_per_site(all_sites,branching,missing):
         
     return   standard_dev_total
 
-def standard_dev_per_site_nonegs(all_sites):
+def std_dev_per_site_nonegs(all_sites):
     '''Original function to return the standard deviation for a particular variable at each site.
      Does not exclude the inserted values for branching and missing values.'''
     

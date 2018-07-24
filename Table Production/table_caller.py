@@ -2,9 +2,10 @@
 #associated with each biomarker 
 
 import pandas as pd
-import datetime
 
+from getVariable import getVariable
 from getGlucose import getGlucose
+from getGlucose_wl_c import getGlucose_wl_c
 from getTriglycerides import getTriglycerides
 from getTotCholesterol import getTotCholesterol
 from getLDL import getLDL
@@ -15,34 +16,53 @@ from getTotProtein_urine import getTotProtein_urine
 from getCreatinine_urine import getCreatinine_urine
 from getHDL import getHDL 
 from getACR  import  getACR 
-
-#Set up variables 
-#replaced missing and replced branching must be negative values
-
-replaced_missing = -999
-replaced_branching = -555
+from getVisceral_fat import getVisceral_fat
+from getSubcutaneous_fat import getSubcutaneous_fat 
+from globalVariables import *
 
 #directory_for_input = "/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/"
 #input_filename = "new.csv"
 
-directory_for_input = "/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/data/"
-input_filename = "all_sites_v2.5.2.csv"
-directory_for_output = "/Users/taliya/Desktop/AWI-GEN/AWI-GenDataQC/QC_table/"
-present_datetime = datetime.datetime.now()
-date_time_var = present_datetime.strftime("%d-%m-%Y_%H-%M")
-
-input_file = directory_for_input + input_filename 
 data_field1 = pd.read_csv(input_file,low_memory=False)
-
-
-getGlucose (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getTriglycerides (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getTotCholesterol(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getLDL(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getCreatinine_serum (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getInsulin_serum(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getAlbumin_urine(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getTotProtein_urine(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getCreatinine_urine(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getHDL(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
-getACR (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output)
+field_names_list = data_field1.columns.tolist()
+for var in field_names_list:
+    getVariable(var)
+    
+#data_field1
+#getVariable()
+#getGlucose()
+#getGlucose_wl_c()
+#getTriglycerides()
+#getTotCholesterol()
+#getLDL()
+#getCreatinine_serum ()
+#getInsulin_serum()
+#getAlbumin_urine()
+#getTotProtein_urine()
+#getCreatinine_urine()
+#getHDL()
+#getACR ()
+#getVisceral_fat()
+#getSubcutaneous_fat()
+'''getNonHDLCC()'''
+'''friedewald_ldl_c_c'''
+'''BMI
+...with phenotype categories
+...BMI<18.5, BMI ≥18.5 and <25 ≥25 to <29.9 and ≥30 kg/m2)'''
+'''height'''
+'''weight'''
+'''waist circumference'''
+'''hip circumference'''
+'''Waist/hip ratio'''
+'''systolic_1'''
+'''systolic_2'''
+'''systolic_3'''
+'''bp_sys_avg'''
+'''diastolic_1'''
+'''diastolic_2'''
+'''disatolic_3'''
+'''bp_dia_avg'''
+'''pulse_1'''
+'''pulse_2'''
+'''pulse_3'''
+'''pulse_avg'''

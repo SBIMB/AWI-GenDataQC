@@ -1,15 +1,14 @@
 import pandas as pd
 
-from table_generation import stat_and_QC
+from table_generation import stat_and_QCC
 from table_generation import Phenotype_1condition_sex_2func
+from globalVariables import *
 
-
-def getHDL (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+def getHDL ():
     '''Function to generate QC ,statistics and phenotype specific data for the column 'hdl in the input spreadsheet.
     This phenotype data is sex specific and is classified in both casses into 2 classes.'''
     
-    desired_var = 'hdl'
-    
+    desired_var = 'hdl'    
     
     output_table_QC_hdl = str(directory_for_output)  + str(desired_var) + "_" + "QC-tables_" + str(input_filename) + "_" + date_time_var + ".xls"
     output_values_QC_hdl = directory_for_output + desired_var + "_" + "QC-values_" + input_filename + "_" + date_time_var + ".xls"
@@ -21,18 +20,10 @@ def getHDL (replaced_missing,replaced_branching,input_filename,data_field1,date_
     ulq_hdl = 3.80
     con_m = 1.0
     con_f = 1.3
-   
-    
-    
-    stat_and_QC(llq_hdl, ulq_hdl ,desired_var ,data_field1 , output_values_QC_hdl , writer_hdl , 
+       
+    stat_and_QCC(llq_hdl, ulq_hdl ,desired_var ,data_field1 , output_values_QC_hdl , writer_hdl , 
                 replaced_missing, replaced_branching  )
     
     Phenotype_1condition_sex_2func(  desired_var ,data_field1 ,writer_hdl, output_value_phen_hdl,con_m,con_f)
-    
-
-    
+        
     writer_hdl.save()
-    
-
-
-

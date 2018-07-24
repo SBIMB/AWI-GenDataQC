@@ -1,10 +1,9 @@
 import pandas as pd
 
-from table_generation import stat_and_QC
+from table_generation import stat_and_QCC
+from globalVariables import *
 
-
-
-def getCreatinine_urine(replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+def getCreatinine_urine():
     '''Function to generate QC and statistics specific data for the column 'ur_creatinine' in the input spreadsheet.'''
     
     
@@ -22,9 +21,8 @@ def getCreatinine_urine(replaced_missing,replaced_branching,input_filename,data_
 
     
     
-    stat_and_QC(llq_creatinine_u, ulq_creatinine_u ,desired_var ,data_field1 , output_values_QC_creatinine_u, writer_creatinine_u , 
+    stat_and_QCC(llq_creatinine_u, ulq_creatinine_u ,desired_var ,data_field1 , output_values_QC_creatinine_u, writer_creatinine_u , 
                 replaced_missing, replaced_branching  )
     
     
-    writer_creatinine_u.save()
-    
+    writer_creatinine_u.save()    

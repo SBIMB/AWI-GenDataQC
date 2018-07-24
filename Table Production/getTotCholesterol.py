@@ -1,16 +1,16 @@
 import pandas as pd
 
-from table_generation import stat_and_QC
+from table_generation import stat_and_QCC
 from table_generation import Phenotype_1conditions
+from globalVariables import *
 
 
-def getTotCholesterol (replaced_missing,replaced_branching,input_filename,data_field1,date_time_var,directory_for_output):
+def getTotCholesterol ():
     '''Function to generate QC ,statistics and phenotype specific data for the column 'cholesterol_1' in the input spreadsheet.
     The phenotype specific data is classified based on 1 condition'''
     
     desired_var = 'cholesterol_1'
-    
-    
+        
     output_table_QC_tot_chol = str(directory_for_output)  + str(desired_var) + "_" + "QC-tables_" + str(input_filename) + "_" + date_time_var + ".xls"
     output_values_QC_tot_chol = directory_for_output + desired_var + "_" + "QC-values_" + input_filename + "_" + date_time_var + ".xls"
     output_value_phen_tot_chol = str(directory_for_output)  + str(desired_var) + "_" + "Phen-table_" + str(input_filename) + "_" + date_time_var + ".xls"
@@ -23,7 +23,7 @@ def getTotCholesterol (replaced_missing,replaced_branching,input_filename,data_f
     
     
     
-    stat_and_QC(llq_tot_chol, ulq_tot_chol ,desired_var ,data_field1 , output_values_QC_tot_chol , writer_tot_chol , 
+    stat_and_QCC(llq_tot_chol, ulq_tot_chol ,desired_var ,data_field1 , output_values_QC_tot_chol , writer_tot_chol , 
                 replaced_missing, replaced_branching  )
     
     Phenotype_1conditions( con1_tot_chol, desired_var ,data_field1 ,  writer_tot_chol ,
