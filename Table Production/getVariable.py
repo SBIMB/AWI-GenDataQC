@@ -91,7 +91,7 @@ def getVariable (desired_var):
                      output_values_QC_variable , writer_variable, replaced_missing, 
                      replaced_branching)
     
-        Phenotype_5conditions(llq_glucose, con1_glucose, con2_glucose ,
+        Phenotype_5conditions(llq_glucose, con1_glucose, con2_glucose,
              con3_glucose, desired_var ,data_field1 ,  writer_variable,
             output_value_phen_variable )
     #elif desired_var == 'glucose':
@@ -199,3 +199,351 @@ def getVariable (desired_var):
                               writer_variable, output_value_phen_variable)
     
         writer_variable.save()
+        
+    #getNonHDLCC()
+    if desired_var == 'non_hdl_c_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, 
+                    writer_variable, below_spec, above_spec, replaced_missing, 
+                    replaced_branching, replaced_missing_bio, 
+                    replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+        
+        
+    #friedewald_ldl_c_c
+    if desired_var == 'friedewald_ldl_c_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    #BMI
+    #...with phenotype categories
+    #...BMI<, BMI ≥18.5 and <25 ≥25 to <29.9 and ≥30 kg/m2)
+    under=18.50
+    normal=25.00
+    over=30.00
+    obese=35.00
+    if desired_var == 'bmi_c':
+        print(desired_var)
+        stat_and_QCC(under, obese ,desired_var ,data_field1 , 
+                     output_values_QC_variable , writer_variable,
+                     replaced_missing, replaced_branching)
+    
+        Phenotype_5conditions(under, normal, over, obese, desired_var, 
+                              data_field1,  writer_variable,
+                              output_value_phen_variable )
+    
+        writer_variable.save()
+        
+    #height
+    if desired_var == 'standing_height_mm':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, 
+                    writer_variable, below_spec, above_spec, replaced_missing, 
+                    replaced_branching, replaced_missing_bio, 
+                    replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    #weight
+    if desired_var == 'weight_kg':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, 
+                    writer_variable, below_spec, above_spec, replaced_missing, 
+                    replaced_branching, replaced_missing_bio, 
+                    replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''waist circumference'''
+    if desired_var == 'waist_circumference_mm':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''hip circumference'''
+    if desired_var == 'hip_circumference_mm':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''Waist/hip ratio'''
+    if desired_var == 'wst_hip_r_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''systolic_1'''
+    if desired_var == 'systolic_1':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''systolic_2'''
+    if desired_var == 'systolic_2':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''systolic_3'''
+    if desired_var == 'systolic_3':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''bp_sys_avg'''
+    if desired_var == 'bp_sys_avg':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''diastolic_1'''
+    if desired_var == 'diastolic_1':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''diastolic_2'''
+    if desired_var == 'diastolic_2':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''disatolic_3'''
+    if desired_var == 'diastolic_3':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''bp_dia_avg'''
+    if desired_var == 'bp_dia_avg':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''pulse_1'''
+    if desired_var == 'pulse_1':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''pulse_2'''
+    if desired_var == 'pulse_2':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''pulse_3'''
+    if desired_var == 'pulse_3':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    '''pulse_avg'''
+    if desired_var == 'pulse_avg':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+    
+        writer_variable.save()
+        
+    #fasting_confirmation
+    if desired_var == 'fasting_confirmation':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+        
+        writer_variable.save()
+        
+    #CIMT_Complete_c
+    if desired_var == 'cimt_complete_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable) 
+        
+        writer_variable.save()
+        
+    #htn_jnc7
+    if desired_var == 'htn_jnc7':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+        
+        writer_variable.save() 
+        
+    #hiv_final_status_c
+    if desired_var == 'hiv_final_status_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+        
+        writer_variable.save()    
+        
+    #Waist_hip_ratio_complete_c
+    if desired_var == 'waist_hip_r_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+        
+        writer_variable.save()   
+        
+    #bp_sys_avg_complete_c
+    if desired_var == 'bp_sys_average_complete_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+        
+        writer_variable.save()  
+        
+    #bp_dia_avg_complete_c
+    if desired_var == 'bp_dia_average_complete_c':
+        print(desired_var)
+        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+                below_spec, above_spec, replaced_missing, replaced_branching, 
+                replaced_missing_bio, replaced_missing_bio_ex)
+    
+        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+                              writer_variable, output_value_phen_variable)
+        
+        writer_variable.save()
+        
+    #pulse_avg_complete_c
+#    if desired_var == 'pulse_average_complete_c':
+#        print(desired_var)
+#        stat_and_QC(desired_var, data_field1, output_values_QC_variable, writer_variable, 
+#                below_spec, above_spec, replaced_missing, replaced_branching, 
+#                replaced_missing_bio, replaced_missing_bio_ex)
+#    
+#        Phenotype_1conditions(con1_sub, desired_var, data_field1, 
+#                              writer_variable, output_value_phen_variable)
+#        
+#        writer_variable.save()
